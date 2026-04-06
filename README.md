@@ -15,3 +15,5 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+# cctv_ecommerce_flutter_app
+The CCTV E-commerce Flutter App is a mobile application for browsing and purchasing surveillance products. Built with Flutter, it offers a user-friendly interface, product categories, search, and cart features. It ensures smooth performance and can be expanded with payments, tracking, and reviews.
