@@ -1,0 +1,16 @@
+# Flutter
+build/
+.dart_tool/
+
+# Android
+android/app/build/
+android/app/intermediates/
+android/app/outputs/
+android/app/tmp/
+
+# IDE
+.idea/
+*.iml
+
+# Logs
+*.log
