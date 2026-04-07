@@ -143,7 +143,7 @@ class _MainScreenState extends State<MainScreen> {
           const SizedBox(height: 48),
           _buildTestimonials(),
           const SizedBox(height: 48),
-          const AppFooter(),
+          const SizedBox(height: 48),
         ],
       ),
     );
@@ -680,7 +680,6 @@ class ProductsScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const AppFooter(),
           ],
         ),
       ),
@@ -755,7 +754,6 @@ class ServicesScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const AppFooter(),
           ],
         ),
       ),
@@ -944,7 +942,6 @@ class AboutScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const AppFooter(),
           ],
         ),
       ),
@@ -1137,7 +1134,6 @@ class ContactScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const AppFooter(),
           ],
         ),
       ),
@@ -1184,64 +1180,3 @@ class ContactScreen extends StatelessWidget {
   }
 }
 
-class AppFooter extends StatelessWidget {
-  const AppFooter({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xFF5538C9),
-      padding: const EdgeInsets.all(24.0),
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "TN Automation",
-            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 12),
-          Text(
-            "Smart ecommerce solutions for cameras, automation products, and reliable customer support.",
-            style: TextStyle(color: Colors.white70, height: 1.5),
-          ),
-          SizedBox(height: 32),
-          Text(
-            "CONTACT",
-            style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 16),
-          Row(
-            children: [
-              Icon(Icons.phone_outlined, color: Colors.white70, size: 16),
-              SizedBox(width: 8),
-              Text("+91 78452 83678", style: TextStyle(color: Colors.white70, fontSize: 14)),
-            ],
-          ),
-          SizedBox(height: 12),
-          Row(
-            children: [
-              Icon(Icons.email_outlined, color: Colors.white70, size: 16),
-              SizedBox(width: 8),
-              Text("tnautomation@yahoo.com", style: TextStyle(color: Colors.white70, fontSize: 14)),
-            ],
-          ),
-          SizedBox(height: 32),
-          Divider(color: Colors.white24),
-          SizedBox(height: 16),
-          Text("© 2026 TN Automation. All rights reserved.", style: TextStyle(color: Colors.white54, fontSize: 12)),
-          SizedBox(height: 12),
-          Row(
-             children: [
-               Text("Privacy Policy", style: TextStyle(color: Colors.white70, fontSize: 12)),
-               SizedBox(width: 16),
-               Text("Refund Policy", style: TextStyle(color: Colors.white70, fontSize: 12)),
-               SizedBox(width: 16),
-               Text("Terms", style: TextStyle(color: Colors.white70, fontSize: 12)),
-             ],
-          ),
-          SizedBox(height: 24),
-        ],
-      ),
-    );
-  }
-}
