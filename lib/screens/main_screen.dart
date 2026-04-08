@@ -7,6 +7,8 @@ import 'cart_screen.dart';
 import 'favorites_screen.dart';
 import '../services/cart_service.dart';
 
+import 'account_screen.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -20,13 +22,15 @@ class _MainScreenState extends State<MainScreen> {
   // Controllers for scroll-to-top feature
   late final ScrollController _productsScrollController = ScrollController();
   late final ScrollController _contactScrollController = ScrollController();
+  late final ScrollController _accountScrollController = ScrollController();
 
   void _onTabTapped(int index) {
     if (_currentIndex == index) {
       // Scroll to top if clicking the same tab
       ScrollController currentController;
       if (index == 0) currentController = _productsScrollController;
-      else currentController = _contactScrollController;
+      else if (index == 1) currentController = _contactScrollController;
+      else currentController = _accountScrollController;
 
       if (currentController.hasClients) {
         currentController.animateTo(
@@ -46,6 +50,7 @@ class _MainScreenState extends State<MainScreen> {
   void dispose() {
     _productsScrollController.dispose();
     _contactScrollController.dispose();
+    _accountScrollController.dispose();
     super.dispose();
   }
 
@@ -54,6 +59,7 @@ class _MainScreenState extends State<MainScreen> {
     final List<Widget> screens = [
       ProductsScreen(controller: _productsScrollController),
       ContactScreen(controller: _contactScrollController),
+      AccountScreen(controller: _accountScrollController),
     ];
 
     return Scaffold(
@@ -152,6 +158,11 @@ class _MainScreenState extends State<MainScreen> {
                   selectedIcon: Icon(Icons.contact_support_rounded, color: Color(0xFF5538C9)),
                   label: 'Contact',
                 ),
+                NavigationDestination(
+                  icon: Icon(Icons.person_outline_rounded),
+                  selectedIcon: Icon(Icons.person_rounded, color: Color(0xFF5538C9)),
+                  label: 'Account',
+                ),
               ],
             ),
           ),
@@ -159,6 +170,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
+
 
   Widget _buildAppBarAction<T>(IconData icon, ValueListenable<List<T>> listenable, VoidCallback onTap) {
     return ValueListenableBuilder<List<T>>(

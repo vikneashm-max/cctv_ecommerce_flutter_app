@@ -117,20 +117,20 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   child: Container(
                     height: 56,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.6),
+                      color: Colors.white.withOpacity(0.9), // Increased opacity for better contrast
                       borderRadius: BorderRadius.circular(24),
-                      border: Border.all(color: Colors.white.withOpacity(0.4), width: 1.5),
+                      border: Border.all(color: const Color(0xFF5538C9).withOpacity(0.15), width: 1.5),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF5538C9).withOpacity(0.12),
-                          blurRadius: 30,
-                          offset: const Offset(0, 15),
+                          color: const Color(0xFF5538C9).withOpacity(0.25),
+                          blurRadius: 40,
+                          offset: const Offset(0, 20),
+                          spreadRadius: 4,
                         ),
                         BoxShadow(
-                          color: Colors.white.withOpacity(0.4),
-                          blurRadius: 0,
-                          offset: const Offset(0, 0),
-                          spreadRadius: -1,
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 15,
+                          offset: const Offset(0, 8),
                         ),
                       ],
                     ),
