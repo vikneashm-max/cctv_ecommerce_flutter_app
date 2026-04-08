@@ -8,10 +8,10 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFBFBFE),
+      backgroundColor: const Color(0xFFF6F8FE),
       appBar: AppBar(
-        title: const Text("My Cart", style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: -0.5)),
-        backgroundColor: Colors.white,
+        title: const Text("My Cart", style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: -0.8)),
+        backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
       ),
