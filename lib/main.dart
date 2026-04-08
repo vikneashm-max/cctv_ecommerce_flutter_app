@@ -24,11 +24,11 @@ class TNAutomationApp extends StatelessWidget {
           surface: Colors.white,
         ),
         textTheme: GoogleFonts.outfitTextTheme(Theme.of(context).textTheme),
-        scaffoldBackgroundColor: const Color(0xFFFBFBFE),
+        scaffoldBackgroundColor: const Color(0xFFF6F8FE),
         appBarTheme: const AppBarTheme(
           centerTitle: false,
           surfaceTintColor: Colors.transparent,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
           elevation: 0,
         ),
       ),

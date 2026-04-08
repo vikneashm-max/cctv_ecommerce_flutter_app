@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'products_screen.dart';
-import 'about_screen.dart';
 import 'contact_screen.dart';
 import 'cart_screen.dart';
 import 'favorites_screen.dart';
 import '../services/cart_service.dart';
-import '../models/product.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -20,7 +18,6 @@ class _MainScreenState extends State<MainScreen> {
   
   // Controllers for scroll-to-top feature
   late final ScrollController _productsScrollController = ScrollController();
-  late final ScrollController _aboutScrollController = ScrollController();
   late final ScrollController _contactScrollController = ScrollController();
 
   void _onTabTapped(int index) {
@@ -28,7 +25,6 @@ class _MainScreenState extends State<MainScreen> {
       // Scroll to top if clicking the same tab
       ScrollController currentController;
       if (index == 0) currentController = _productsScrollController;
-      else if (index == 1) currentController = _aboutScrollController;
       else currentController = _contactScrollController;
 
       if (currentController.hasClients) {
@@ -48,7 +44,6 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void dispose() {
     _productsScrollController.dispose();
-    _aboutScrollController.dispose();
     _contactScrollController.dispose();
     super.dispose();
   }
@@ -57,14 +52,13 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final List<Widget> screens = [
       ProductsScreen(controller: _productsScrollController),
-      AboutScreen(controller: _aboutScrollController),
       ContactScreen(controller: _contactScrollController),
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FF), // Subtle lavender tint background
+      backgroundColor: const Color(0xFFF6F8FE), // Refined premium background color
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         title: Row(
@@ -104,19 +98,24 @@ class _MainScreenState extends State<MainScreen> {
           const SizedBox(width: 8),
         ],
       ),
-      // Animated Switcher for premium smooth page transitions
+      // Improved Page Transition Animation
       body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 400),
-        switchInCurve: Curves.easeOutSine,
-        switchOutCurve: Curves.easeInSine,
+        duration: const Duration(milliseconds: 500),
+        switchInCurve: Curves.easeOutCubic,
+        switchOutCurve: Curves.easeInCubic,
         transitionBuilder: (Widget child, Animation<double> animation) {
+          final fadeAnimation = CurvedAnimation(
+            parent: animation,
+            curve: const Interval(0.4, 1.0, curve: Curves.easeIn),
+          );
+          final scaleAnimation = Tween<double>(begin: 0.98, end: 1.0).animate(
+            CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
+          );
+          
           return FadeTransition(
-            opacity: animation,
-            child: SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(0.05, 0),
-                end: Offset.zero,
-              ).animate(animation),
+            opacity: fadeAnimation,
+            child: ScaleTransition(
+              scale: scaleAnimation,
               child: child,
             ),
           );
@@ -128,11 +127,12 @@ class _MainScreenState extends State<MainScreen> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
+          color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.03),
-              blurRadius: 20,
-              offset: const Offset(0, -5),
+              color: const Color(0xFF5538C9).withOpacity(0.06),
+              blurRadius: 30,
+              offset: const Offset(0, -10),
             ),
           ],
         ),
@@ -142,21 +142,16 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.white,
           elevation: 0,
           indicatorColor: const Color(0xFF5538C9).withOpacity(0.12),
-          height: 65,
+          height: 70,
           destinations: const [
             NavigationDestination(
               icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home, color: Color(0xFF5538C9)),
+              selectedIcon: Icon(Icons.home_rounded, color: Color(0xFF5538C9)),
               label: 'Home',
             ),
             NavigationDestination(
-              icon: Icon(Icons.info_outline),
-              selectedIcon: Icon(Icons.info, color: Color(0xFF5538C9)),
-              label: 'About',
-            ),
-            NavigationDestination(
               icon: Icon(Icons.contact_support_outlined),
-              selectedIcon: Icon(Icons.contact_support, color: Color(0xFF5538C9)),
+              selectedIcon: Icon(Icons.contact_support_rounded, color: Color(0xFF5538C9)),
               label: 'Contact',
             ),
           ],
