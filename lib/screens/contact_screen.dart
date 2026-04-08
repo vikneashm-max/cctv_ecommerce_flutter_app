@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../widgets/animated_scale_card.dart';
 
@@ -15,7 +16,7 @@ class ContactScreen extends StatelessWidget {
         child: Column(
           children: [
             // Premium Header
-             Stack(
+            Stack(
               children: [
                 Container(
                   height: 220,
@@ -77,7 +78,7 @@ class ContactScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
                 children: [
-                   _buildNewContactCard(
+                  _buildNewContactCard(
                     Icons.location_on_rounded, 
                     "Main Headquarters", 
                     "2/206, main road, Thittai, Sirkali, Tamil Nadu 609111",
@@ -98,7 +99,7 @@ class ContactScreen extends StatelessWidget {
                     "Send Email",
                   ),
                   const SizedBox(height: 18),
-                   _buildNewContactCard(
+                  _buildNewContactCard(
                     Icons.access_time_filled_rounded, 
                     "Operating Hours", 
                     "Mon - Sat: 9:00 AM - 8:00 PM\nSunday: Closed",
@@ -134,43 +135,50 @@ class ContactScreen extends StatelessWidget {
 
   Widget _buildNewContactCard(IconData icon, String title, String value, String actionLabel) {
     return AnimatedScaleCard(
-      child: Container(
-        padding: const EdgeInsets.all(26),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(28),
-          boxShadow: [
-            BoxShadow(
-              color: const Color(0xFF5538C9).withOpacity(0.06),
-              blurRadius: 25,
-              offset: const Offset(0, 12),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(28),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Container(
+            padding: const EdgeInsets.all(26),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(28),
+              border: Border.all(color: Colors.white.withOpacity(0.4), width: 1.5),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF5538C9).withOpacity(0.04),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ],
             ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(
-                color: const Color(0xFF5538C9).withOpacity(0.08),
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Icon(icon, color: const Color(0xFF5538C9), size: 28),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF5538C9).withOpacity(0.08),
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  child: Icon(icon, color: const Color(0xFF5538C9), size: 28),
+                ),
+                const SizedBox(width: 22),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(title, style: TextStyle(color: Colors.grey.shade500, fontSize: 13, fontWeight: FontWeight.w700, letterSpacing: 0.5)),
+                      const SizedBox(height: 6),
+                      Text(value, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900, height: 1.4, letterSpacing: -0.2)),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Icon(Icons.arrow_forward_ios_rounded, size: 16, color: Colors.grey.shade400),
+              ],
             ),
-            const SizedBox(width: 22),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title, style: TextStyle(color: Colors.grey.shade500, fontSize: 13, fontWeight: FontWeight.w700, letterSpacing: 0.5)),
-                  const SizedBox(height: 6),
-                  Text(value, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900, height: 1.4, letterSpacing: -0.2)),
-                ],
-              ),
-            ),
-            const SizedBox(width: 10),
-            Icon(Icons.arrow_forward_ios_rounded, size: 16, color: Colors.grey.shade400),
-          ],
+          ),
         ),
       ),
     );
@@ -190,4 +198,3 @@ class ContactScreen extends StatelessWidget {
     );
   }
 }
-

@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 import '../services/cart_service.dart';
@@ -60,10 +61,51 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                 ],
               ),
-              child: Hero(
-                tag: widget.product.name,
-                child: Icon(widget.product.icon, size: 180, color: const Color(0xFF5538C9).withOpacity(0.2)),
-              ),
+              child: widget.product.images.isNotEmpty
+                ? Stack(
+                    children: [
+                      PageView.builder(
+                        itemCount: widget.product.images.length,
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return Center(
+                            child: Hero(
+                              tag: index == 0 ? widget.product.name : "other_${index}",
+                              child: Image.asset(
+                                widget.product.images[index],
+                                fit: BoxFit.contain,
+                                height: 260,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      Positioned(
+                        bottom: 20,
+                        left: 0,
+                        right: 0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            widget.product.images.length,
+                            (index) => Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 4),
+                              width: 8,
+                              height: 8,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: const Color(0xFF5538C9).withOpacity(0.2),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : Hero(
+                    tag: widget.product.name,
+                    child: Icon(widget.product.icon, size: 180, color: const Color(0xFF5538C9).withOpacity(0.2)),
+                  ),
             ),
             
             Padding(
@@ -165,56 +207,59 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           ],
         ),
       ),
-      bottomSheet: Container(
-        padding: const EdgeInsets.all(24),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 20, offset: const Offset(0, -5)),
-          ],
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: SizedBox(
-                height: 56,
-                child: OutlinedButton(
-                  onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: Color(0xFF5538C9), width: 2),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                  ),
-                  child: const Text("Buy Now", style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF5538C9))),
-                ),
-              ),
+      bottomSheet: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+          child: Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.7),
+              border: Border(top: BorderSide(color: Colors.white.withOpacity(0.4), width: 1.5)),
             ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: SizedBox(
-                height: 56,
-                child: ElevatedButton(
-                  onPressed: () {
-                    CartService().addToCart(widget.product, quantity: _quantity);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("Added $_quantity to Cart"),
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: const Color(0xFF5538C9),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        duration: const Duration(seconds: 1),
+            child: Row(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    height: 56,
+                    child: OutlinedButton(
+                      onPressed: () {},
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: Color(0xFF5538C9), width: 2),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                       ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF5538C9),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                    elevation: 0,
+                      child: const Text("Buy Now", style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF5538C9))),
+                    ),
                   ),
-                  child: const Text("Add to Cart", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
                 ),
-              ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: SizedBox(
+                    height: 56,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        CartService().addToCart(widget.product, quantity: _quantity);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Added $_quantity to Cart"),
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: const Color(0xFF5538C9),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            duration: const Duration(seconds: 1),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF5538C9),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        elevation: 0,
+                      ),
+                      child: const Text("Add to Cart", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -232,7 +277,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 
   Widget _buildSpecificationRow(String label, String value) {
-
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
