@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 import '../widgets/animated_scale_card.dart';
@@ -36,7 +37,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   void _startBannerTimer() {
     _bannerTimer = Timer.periodic(const Duration(seconds: 4), (timer) {
       if (_bannerController.hasClients) {
-        _currentBannerPage = (_currentBannerPage + 1) % 2;
+        _currentBannerPage = (_currentBannerPage + 1) % 5;
         _bannerController.animateToPage(
           _currentBannerPage,
           duration: const Duration(milliseconds: 1000),
@@ -48,30 +49,35 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
   final List<Product> _allProducts = [
     // Cameras
-    Product(name: "4MP IP Bullet Camera", category: "Cameras", price: 3500, icon: Icons.camera_alt_rounded, rating: 4.5, popularity: 120, addedDate: DateTime(2023, 10, 1)),
-    Product(name: "2MP PTZ Dome Camera", category: "Cameras", price: 4800, icon: Icons.camera_indoor_rounded, rating: 4.2, popularity: 85, addedDate: DateTime(2023, 11, 5)),
-    Product(name: "Outdoor Night Vision Cam", category: "Cameras", price: 5200, icon: Icons.nightlight_round, rating: 4.8, popularity: 210, addedDate: DateTime(2023, 12, 10)),
-    Product(name: "Wifi Smart Link Camera", category: "Cameras", price: 3100, icon: Icons.wifi_tethering_rounded, rating: 3.9, popularity: 60, addedDate: DateTime(2024, 1, 2)),
-    // Recording Devices
-    Product(name: "8-Channel 4K NVR", category: "Recording Devices", price: 12500, icon: Icons.security_rounded, rating: 4.7, popularity: 45, addedDate: DateTime(2023, 9, 15)),
-    Product(name: "16-Channel HD DVR", category: "Recording Devices", price: 8500, icon: Icons.videocam_rounded, rating: 4.1, popularity: 30, addedDate: DateTime(2023, 11, 20)),
-    Product(name: "Smart Hybrid XVR", category: "Recording Devices", price: 15400, icon: Icons.settings_system_daydream_rounded, rating: 4.6, popularity: 15, addedDate: DateTime(2024, 2, 1)),
+    Product(name: "4MP IP Bullet Camera", category: "Cameras", price: 3500, icon: Icons.camera_alt_rounded, rating: 4.5, popularity: 120, addedDate: DateTime(2023, 10, 1), images: ['assets/images/camera_front.png', 'assets/images/camera_side.png', 'assets/images/camera_box.png']),
+    Product(name: "2MP PTZ Dome Camera", category: "Cameras", price: 4800, icon: Icons.camera_indoor_rounded, rating: 4.2, popularity: 85, addedDate: DateTime(2023, 11, 5), images: ['assets/images/camera_side.png', 'assets/images/camera_front.png', 'assets/images/camera_box.png']),
+    Product(name: "Outdoor Night Vision Cam", category: "Cameras", price: 5200, icon: Icons.nightlight_round, rating: 4.8, popularity: 210, addedDate: DateTime(2023, 12, 10), images: ['assets/images/camera_box.png', 'assets/images/camera_front.png', 'assets/images/camera_side.png']),
+    Product(name: "Wifi Smart Link Camera", category: "Cameras", price: 3100, icon: Icons.wifi_tethering_rounded, rating: 3.9, popularity: 60, addedDate: DateTime(2024, 1, 2), images: ['assets/images/camera_front.png', 'assets/images/camera_box.png', 'assets/images/camera_side.png']),
+    
+    // Recording Devices (Reusing images generic for now)
+    Product(name: "8-Channel 4K NVR", category: "Recording Devices", price: 12500, icon: Icons.security_rounded, rating: 4.7, popularity: 45, addedDate: DateTime(2023, 9, 15), images: ['assets/images/camera_box.png', 'assets/images/camera_front.png', 'assets/images/camera_side.png']),
+    Product(name: "16-Channel HD DVR", category: "Recording Devices", price: 8500, icon: Icons.videocam_rounded, rating: 4.1, popularity: 30, addedDate: DateTime(2023, 11, 20), images: ['assets/images/camera_box.png', 'assets/images/camera_front.png', 'assets/images/camera_side.png']),
+    Product(name: "Smart Hybrid XVR", category: "Recording Devices", price: 15400, icon: Icons.settings_system_daydream_rounded, rating: 4.6, popularity: 15, addedDate: DateTime(2024, 2, 1), images: ['assets/images/camera_box.png', 'assets/images/camera_front.png', 'assets/images/camera_side.png']),
+    
     // Storage
-    Product(name: "2TB Surveillance HDD", category: "Storage", price: 6800, icon: Icons.storage_rounded, rating: 4.9, popularity: 300, addedDate: DateTime(2023, 8, 5)),
-    Product(name: "4TB SkyHawk Drive", category: "Storage", price: 9200, icon: Icons.save_rounded, rating: 4.8, popularity: 150, addedDate: DateTime(2023, 12, 1)),
-    Product(name: "128GB High Endurance SD", category: "Storage", price: 3200, icon: Icons.sd_card_rounded, rating: 4.3, popularity: 500, addedDate: DateTime(2024, 1, 15)),
+    Product(name: "2TB Surveillance HDD", category: "Storage", price: 6800, icon: Icons.storage_rounded, rating: 4.9, popularity: 300, addedDate: DateTime(2023, 8, 5), images: ['assets/images/camera_box.png', 'assets/images/camera_front.png', 'assets/images/camera_side.png']),
+    Product(name: "4TB SkyHawk Drive", category: "Storage", price: 9200, icon: Icons.save_rounded, rating: 4.8, popularity: 150, addedDate: DateTime(2023, 12, 1), images: ['assets/images/camera_box.png', 'assets/images/camera_front.png', 'assets/images/camera_side.png']),
+    Product(name: "128GB High Endurance SD", category: "Storage", price: 3200, icon: Icons.sd_card_rounded, rating: 4.3, popularity: 500, addedDate: DateTime(2024, 1, 15), images: ['assets/images/camera_box.png', 'assets/images/camera_front.png', 'assets/images/camera_side.png']),
+    
     // Power Supply
-    Product(name: "8-Port POE Switch 120W", category: "Power Supply Element", price: 4200, icon: Icons.power_rounded, rating: 4.4, popularity: 80, addedDate: DateTime(2023, 10, 25)),
-    Product(name: "Security Power Box 10A", category: "Power Supply Element", price: 5400, icon: Icons.settings_input_component_rounded, rating: 4.0, popularity: 40, addedDate: DateTime(2023, 11, 30)),
-    Product(name: "Outdoor Waterproof Box", category: "Power Supply Element", price: 3100, icon: Icons.battery_charging_full_rounded, rating: 3.8, popularity: 95, addedDate: DateTime(2024, 1, 5)),
+    Product(name: "8-Port POE Switch 120W", category: "Power Supply Element", price: 4200, icon: Icons.power_rounded, rating: 4.4, popularity: 80, addedDate: DateTime(2023, 10, 25), images: ['assets/images/camera_box.png', 'assets/images/camera_front.png', 'assets/images/camera_side.png']),
+    Product(name: "Security Power Box 10A", category: "Power Supply Element", price: 5400, icon: Icons.settings_input_component_rounded, rating: 4.0, popularity: 40, addedDate: DateTime(2023, 11, 30), images: ['assets/images/camera_box.png', 'assets/images/camera_front.png', 'assets/images/camera_side.png']),
+    Product(name: "Outdoor Waterproof Box", category: "Power Supply Element", price: 3100, icon: Icons.battery_charging_full_rounded, rating: 3.8, popularity: 95, addedDate: DateTime(2024, 1, 5), images: ['assets/images/camera_box.png', 'assets/images/camera_front.png', 'assets/images/camera_side.png']),
+    
     // Networking
-    Product(name: "Gigabit Ethernet Router", category: "Networking Equipment", price: 4500, icon: Icons.router_rounded, rating: 4.3, popularity: 110, addedDate: DateTime(2023, 11, 10)),
-    Product(name: "Long Range Wi-Fi Bridge", category: "Networking Equipment", price: 18500, icon: Icons.settings_input_antenna_rounded, rating: 4.7, popularity: 25, addedDate: DateTime(2023, 12, 25)),
-    Product(name: "Industrial Fiber Switch", category: "Networking Equipment", price: 22400, icon: Icons.hub_rounded, rating: 4.9, popularity: 10, addedDate: DateTime(2024, 3, 10)),
+    Product(name: "Gigabit Ethernet Router", category: "Networking Equipment", price: 4500, icon: Icons.router_rounded, rating: 4.3, popularity: 110, addedDate: DateTime(2023, 11, 10), images: ['assets/images/camera_box.png', 'assets/images/camera_front.png', 'assets/images/camera_side.png']),
+    Product(name: "Long Range Wi-Fi Bridge", category: "Networking Equipment", price: 18500, icon: Icons.settings_input_antenna_rounded, rating: 4.7, popularity: 25, addedDate: DateTime(2023, 12, 25), images: ['assets/images/camera_box.png', 'assets/images/camera_front.png', 'assets/images/camera_side.png']),
+    Product(name: "Industrial Fiber Switch", category: "Networking Equipment", price: 22400, icon: Icons.hub_rounded, rating: 4.9, popularity: 10, addedDate: DateTime(2024, 3, 10), images: ['assets/images/camera_box.png', 'assets/images/camera_front.png', 'assets/images/camera_side.png']),
+    
     // Display
-    Product(name: "21.5-inch LED Monitor", category: "Display", price: 8500, icon: Icons.monitor_rounded, rating: 4.2, popularity: 70, addedDate: DateTime(2023, 11, 15)),
-    Product(name: "32-inch 4K Security TV", category: "Display", price: 24500, icon: Icons.tv_rounded, rating: 4.8, popularity: 20, addedDate: DateTime(2024, 1, 20)),
-    Product(name: "Dual-Display VGA Box", category: "Display", price: 6200, icon: Icons.screenshot_monitor_rounded, rating: 3.7, popularity: 55, addedDate: DateTime(2024, 2, 10)),
+    Product(name: "21.5-inch LED Monitor", category: "Display", price: 8500, icon: Icons.monitor_rounded, rating: 4.2, popularity: 70, addedDate: DateTime(2023, 11, 15), images: ['assets/images/camera_box.png', 'assets/images/camera_front.png', 'assets/images/camera_side.png']),
+    Product(name: "32-inch 4K Security TV", category: "Display", price: 24500, icon: Icons.tv_rounded, rating: 4.8, popularity: 20, addedDate: DateTime(2024, 1, 20), images: ['assets/images/camera_box.png', 'assets/images/camera_front.png', 'assets/images/camera_side.png']),
+    Product(name: "Dual-Display VGA Box", category: "Display", price: 6200, icon: Icons.screenshot_monitor_rounded, rating: 3.7, popularity: 55, addedDate: DateTime(2024, 2, 10), images: ['assets/images/camera_box.png', 'assets/images/camera_front.png', 'assets/images/camera_side.png']),
   ];
 
   List<Product> _getProcessedProducts() {
@@ -104,35 +110,39 @@ class _ProductsScreenState extends State<ProductsScreen> {
             // Premium Search Bar
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-              child: Container(
-                height: 56,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFF5538C9).withOpacity(0.08),
-                      blurRadius: 25,
-                      offset: const Offset(0, 12),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  child: Container(
+                    height: 56,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.6),
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(color: Colors.white.withOpacity(0.4), width: 1.5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF5538C9).withOpacity(0.12),
+                          blurRadius: 30,
+                          offset: const Offset(0, 15),
+                        ),
+                        BoxShadow(
+                          color: Colors.white.withOpacity(0.4),
+                          blurRadius: 0,
+                          offset: const Offset(0, 0),
+                          spreadRadius: -1,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Search security equipment...",
-                    hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 15, fontWeight: FontWeight.w400),
-                    prefixIcon: const Icon(Icons.search_rounded, color: Color(0xFF5538C9), size: 22),
-                    suffixIcon: Container(
-                      margin: const EdgeInsets.all(8),
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF5538C9).withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(14),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Search security equipment...",
+                        hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 15, fontWeight: FontWeight.w400),
+                        prefixIcon: const Icon(Icons.search_rounded, color: Color(0xFF5538C9), size: 24),
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.symmetric(vertical: 17),
                       ),
-                      child: const Icon(Icons.tune_rounded, color: Color(0xFF5538C9), size: 18),
                     ),
-                    border: InputBorder.none,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 17),
                   ),
                 ),
               ),
@@ -222,8 +232,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
   }
 
   Widget _buildHeroBanner() {
-    return SizedBox(
+    return Container(
       height: 170,
+      color: const Color(0xFFF6F8FE), // Ensures no white strips appear behind or between cards
       child: PageView(
         controller: _bannerController,
         physics: const BouncingScrollPhysics(),
@@ -234,14 +245,35 @@ class _ProductsScreenState extends State<ProductsScreen> {
             "Up to 40% OFF on IP Systems",
             const Color(0xFF5538C9),
             const Color(0xFF7C61EF),
-            'assets/images/cctv_banner_1.png',
+            'assets/images/camera1.png',
           ),
           _buildBannerItem(
             "Smart Monitoring",
-            "New AI Cameras Arrived",
+            "New AI Dome Cameras",
             const Color(0xFF1E40AF),
             const Color(0xFF3B82F6),
-            'assets/images/cctv_banner_2.png',
+            'assets/images/camera2.png',
+          ),
+          _buildBannerItem(
+            "Always Vigilant",
+            "Ultimate Night Vision Tech",
+            const Color(0xFF5538C9),
+            const Color(0xFF8A72F1),
+            'assets/images/camera1.png',
+          ),
+          _buildBannerItem(
+            "24/7 Protection",
+            "Smart NVR Storage Kits",
+            const Color(0xFF1E40AF),
+            const Color(0xFF5538C9),
+            'assets/images/camera2.png',
+          ),
+          _buildBannerItem(
+            "AI-Powered Safety",
+            "Advanced Motion Detection",
+            const Color(0xFF1E40AF),
+            const Color(0xFF3B82F6),
+            'assets/images/camera1.png',
           ),
         ],
       ),
@@ -270,18 +302,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
         borderRadius: BorderRadius.circular(28),
         child: Stack(
           children: [
-            Positioned(
-              right: 0,
-              bottom: -10,
-              child: Image.asset(
-                imagePath,
-                height: 150,
-                fit: BoxFit.contain,
-                color: Colors.white.withOpacity(0.9),
-                colorBlendMode: BlendMode.modulate, // Helps blend white background if any
-                errorBuilder: (context, error, stackTrace) => Icon(Icons.security, size: 140, color: Colors.white.withOpacity(0.15)),
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.all(28.0),
               child: Column(
@@ -317,20 +337,20 @@ class _ProductsScreenState extends State<ProductsScreen> {
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeOutQuart,
         margin: const EdgeInsets.only(right: 14),
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF5538C9) : Colors.white,
-          borderRadius: BorderRadius.circular(18),
-          boxShadow: [
-            if (isSelected)
-              BoxShadow(color: const Color(0xFF5538C9).withOpacity(0.25), blurRadius: 15, offset: const Offset(0, 6))
-            else
-              BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 12, offset: const Offset(0, 4)),
-          ],
+          color: isSelected ? const Color(0xFF5538C9) : Colors.white.withOpacity(0.7),
+          borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isSelected ? const Color(0xFF5538C9) : Colors.white,
+            color: isSelected ? const Color(0xFF5538C9) : Colors.white.withOpacity(0.5),
             width: 1.5,
           ),
+          boxShadow: [
+            if (isSelected)
+              BoxShadow(color: const Color(0xFF5538C9).withOpacity(0.2), blurRadius: 12, offset: const Offset(0, 6))
+            else
+              BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 8, offset: const Offset(0, 4)),
+          ],
         ),
         child: Row(
           children: [
@@ -354,7 +374,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: const Color(0xFFF6F8FE),
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 8, offset: const Offset(0, 2)),
@@ -395,13 +415,14 @@ class _ProductsScreenState extends State<ProductsScreen> {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(28),
+            color: Colors.white.withOpacity(0.7),
+            borderRadius: BorderRadius.circular(32),
+            border: Border.all(color: Colors.white.withOpacity(0.5), width: 1.5),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF5538C9).withOpacity(0.05),
-                blurRadius: 20,
-                offset: const Offset(0, 10),
+                color: const Color(0xFF5538C9).withOpacity(0.06),
+                blurRadius: 25,
+                offset: const Offset(0, 12),
               ),
             ],
           ),
@@ -416,7 +437,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       margin: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [const Color(0xFFF6F8FE), Colors.grey.shade50],
+                          colors: [const Color(0xFF5538C9).withOpacity(0.03), const Color(0xFFF6F8FE)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
@@ -425,7 +446,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       child: Center(
                         child: Hero(
                           tag: product.name,
-                          child: Icon(product.icon, color: const Color(0xFF5538C9).withOpacity(0.25), size: 60),
+                          child: product.images.isNotEmpty 
+                            ? Image.asset(product.images[0], fit: BoxFit.contain, height: 100)
+                            : Icon(product.icon, color: const Color(0xFF5538C9).withOpacity(0.25), size: 60),
                         ),
                       ),
                     ),
@@ -435,7 +458,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       child: Container(
                         padding: const EdgeInsets.all(7),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.9), 
+                          color: const Color(0xFFF6F8FE).withOpacity(0.9),
                           shape: BoxShape.circle,
                           boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 5)],
                         ),
@@ -464,7 +487,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Row(
+                    Row(
                       children: [
                         Icon(Icons.star_rounded, color: Colors.amber.shade700, size: 16),
                         const SizedBox(width: 4),
@@ -505,7 +528,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                             decoration: BoxDecoration(
                               color: const Color(0xFF5538C9),
                               boxShadow: [
-                                 BoxShadow(color: const Color(0xFF5538C9).withOpacity(0.3), blurRadius: 12, offset: const Offset(0, 5)),
+                                BoxShadow(color: const Color(0xFF5538C9).withOpacity(0.3), blurRadius: 12, offset: const Offset(0, 5)),
                               ],
                               borderRadius: BorderRadius.circular(14),
                             ),
@@ -524,4 +547,3 @@ class _ProductsScreenState extends State<ProductsScreen> {
     );
   }
 }
-

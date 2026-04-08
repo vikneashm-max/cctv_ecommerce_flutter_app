@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'products_screen.dart';
@@ -125,36 +126,35 @@ class _MainScreenState extends State<MainScreen> {
           child: screens[_currentIndex],
         ),
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: const Color(0xFF5538C9).withOpacity(0.06),
-              blurRadius: 30,
-              offset: const Offset(0, -10),
+      bottomNavigationBar: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.6),
+              border: Border(top: BorderSide(color: Colors.white.withOpacity(0.3), width: 1.5)),
             ),
-          ],
-        ),
-        child: NavigationBar(
-          selectedIndex: _currentIndex,
-          onDestinationSelected: _onTabTapped,
-          backgroundColor: Colors.white,
-          elevation: 0,
-          indicatorColor: const Color(0xFF5538C9).withOpacity(0.12),
-          height: 70,
-          destinations: const [
-            NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home_rounded, color: Color(0xFF5538C9)),
-              label: 'Home',
+            child: NavigationBar(
+              selectedIndex: _currentIndex,
+              onDestinationSelected: _onTabTapped,
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              indicatorColor: const Color(0xFF5538C9).withOpacity(0.12),
+              height: 70,
+              destinations: const [
+                NavigationDestination(
+                  icon: Icon(Icons.home_outlined),
+                  selectedIcon: Icon(Icons.home_rounded, color: Color(0xFF5538C9)),
+                  label: 'Home',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.contact_support_outlined),
+                  selectedIcon: Icon(Icons.contact_support_rounded, color: Color(0xFF5538C9)),
+                  label: 'Contact',
+                ),
+              ],
             ),
-            NavigationDestination(
-              icon: Icon(Icons.contact_support_outlined),
-              selectedIcon: Icon(Icons.contact_support_rounded, color: Color(0xFF5538C9)),
-              label: 'Contact',
-            ),
-          ],
+          ),
         ),
       ),
     );
