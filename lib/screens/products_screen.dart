@@ -117,9 +117,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   child: Container(
                     height: 56,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.9), // Increased opacity for better contrast
+                      color: Colors.white, // Search Bar background: #FFFFFF
                       borderRadius: BorderRadius.circular(24),
-                      border: Border.all(color: const Color(0xFF5538C9).withOpacity(0.15), width: 1.5),
+                      border: Border.all(color: const Color(0xFF7039F7).withOpacity(0.15), width: 1.5),
                       boxShadow: [
                         BoxShadow(
                           color: const Color(0xFF5538C9).withOpacity(0.25),
@@ -138,7 +138,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       decoration: InputDecoration(
                         hintText: "Search security equipment...",
                         hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 15, fontWeight: FontWeight.w400),
-                        prefixIcon: const Icon(Icons.search_rounded, color: Color(0xFF5538C9), size: 24),
+                        prefixIcon: const Icon(Icons.search_rounded, color: Color(0xFF7039F7), size: 24),
                         border: InputBorder.none,
                         contentPadding: const EdgeInsets.symmetric(vertical: 17),
                       ),
@@ -159,10 +159,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("Categories", style: TextStyle(fontSize: 19, fontWeight: FontWeight.w800, letterSpacing: -0.5)),
+                  const Text("Categories", style: TextStyle(color: Color(0xFF2A1263), fontSize: 19, fontWeight: FontWeight.w800, letterSpacing: -0.5)),
                   TextButton(
                     onPressed: () => setState(() => _selectedCategory = "All Products"),
-                    style: TextButton.styleFrom(foregroundColor: const Color(0xFF5538C9)),
+                    style: TextButton.styleFrom(foregroundColor: const Color(0xFF7039F7)),
                     child: const Text("See All", style: TextStyle(fontWeight: FontWeight.w900, fontSize: 13)),
                   ),
                 ],
@@ -196,8 +196,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
                    Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(_selectedCategory, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900, letterSpacing: -1)),
-                      Text("${displayProducts.length} premium products", style: TextStyle(color: Colors.grey.shade500, fontSize: 13, fontWeight: FontWeight.w500)),
+                      Text(_selectedCategory, style: const TextStyle(color: Color(0xFF2A1263), fontSize: 24, fontWeight: FontWeight.w900, letterSpacing: -1)),
+                      Text("${displayProducts.length} premium products", style: TextStyle(color: const Color(0xFF7C808E), fontSize: 13, fontWeight: FontWeight.w500)),
                     ],
                   ),
                   const Spacer(),
@@ -219,7 +219,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
-                  childAspectRatio: 0.68,
+                  childAspectRatio: 0.64, // Slightly taller to prevent text overflow
                 ),
                 itemBuilder: (context, index) => _buildProductCard(displayProducts[index]),
               ),
@@ -234,7 +234,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   Widget _buildHeroBanner() {
     return Container(
       height: 170,
-      color: const Color(0xFFF6F8FE), // Ensures no white strips appear behind or between cards
+      color: const Color(0xFFF8F9FE), // Primary Background Color: #F8F9FE
       child: PageView(
         controller: _bannerController,
         physics: const BouncingScrollPhysics(),
@@ -243,44 +243,44 @@ class _ProductsScreenState extends State<ProductsScreen> {
           _buildBannerItem(
             "Security Reimagined",
             "Up to 40% OFF on IP Systems",
-            const Color(0xFF5538C9),
+            const Color(0xFF7039F7),
             const Color(0xFF7C61EF),
-            'assets/images/camera1.png',
+            Icons.security_rounded,
           ),
           _buildBannerItem(
             "Smart Monitoring",
             "New AI Dome Cameras",
             const Color(0xFF1E40AF),
             const Color(0xFF3B82F6),
-            'assets/images/camera2.png',
+            Icons.videocam_rounded,
           ),
           _buildBannerItem(
             "Always Vigilant",
             "Ultimate Night Vision Tech",
-            const Color(0xFF5538C9),
+            const Color(0xFF7039F7),
             const Color(0xFF8A72F1),
-            'assets/images/camera1.png',
+            Icons.visibility_rounded,
           ),
           _buildBannerItem(
             "24/7 Protection",
             "Smart NVR Storage Kits",
             const Color(0xFF1E40AF),
-            const Color(0xFF5538C9),
-            'assets/images/camera2.png',
+            const Color(0xFF7039F7),
+            Icons.verified_user_rounded,
           ),
           _buildBannerItem(
             "AI-Powered Safety",
             "Advanced Motion Detection",
             const Color(0xFF1E40AF),
             const Color(0xFF3B82F6),
-            'assets/images/camera1.png',
+            Icons.settings_suggest_rounded,
           ),
         ],
       ),
     );
   }
 
-  Widget _buildBannerItem(String title, String subtitle, Color color1, Color color2, String imagePath) {
+  Widget _buildBannerItem(String title, String subtitle, Color color1, Color color2, IconData icon) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
@@ -303,23 +303,45 @@ class _ProductsScreenState extends State<ProductsScreen> {
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.all(28.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 20.0),
+              child: Row(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(10),
+                  Expanded(
+                    flex: 3,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Text("LIMITED OFFER", style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w900, letterSpacing: 1.2)),
+                          ),
+                          const SizedBox(height: 12),
+                          Text(title, style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w900, height: 1.1)),
+                          const SizedBox(height: 6),
+                          Text(subtitle, style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 15, fontWeight: FontWeight.w500)),
+                        ],
+                      ),
                     ),
-                    child: const Text("LIMITED OFFER", style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w900, letterSpacing: 1.2)),
                   ),
-                  const SizedBox(height: 16),
-                  Text(title, style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w900, height: 1.1)),
-                  const SizedBox(height: 6),
-                  Text(subtitle, style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 15, fontWeight: FontWeight.w500)),
+                  Expanded(
+                    flex: 2,
+                    child: Transform.translate(
+                      offset: const Offset(0, 0),
+                      child: Icon(
+                        icon,
+                        color: Colors.white.withOpacity(0.15),
+                        size: 150,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -339,22 +361,22 @@ class _ProductsScreenState extends State<ProductsScreen> {
         margin: const EdgeInsets.only(right: 14),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF5538C9) : Colors.white.withOpacity(0.7),
+          color: isSelected ? const Color(0xFF7039F7) : const Color(0xFFF7F7F7),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isSelected ? const Color(0xFF5538C9) : Colors.white.withOpacity(0.5),
+            color: isSelected ? const Color(0xFF7039F7) : Colors.white,
             width: 1.5,
           ),
           boxShadow: [
             if (isSelected)
-              BoxShadow(color: const Color(0xFF5538C9).withOpacity(0.2), blurRadius: 12, offset: const Offset(0, 6))
+              BoxShadow(color: const Color(0xFF7039F7).withOpacity(0.2), blurRadius: 12, offset: const Offset(0, 6))
             else
               BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 8, offset: const Offset(0, 4)),
           ],
         ),
         child: Row(
           children: [
-            Icon(icon, color: isSelected ? Colors.white : const Color(0xFF5538C9), size: 20),
+            Icon(icon, color: isSelected ? Colors.white : const Color(0xFF7039F7), size: 20),
             const SizedBox(width: 10),
             Text(
               label,
@@ -374,7 +396,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
       decoration: BoxDecoration(
-        color: const Color(0xFFF6F8FE),
+        color: const Color(0xFFFFFFFF), // Dropdown: #FFFFFF
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 8, offset: const Offset(0, 2)),
@@ -383,7 +405,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           value: _sortBy,
-          icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 20, color: Color(0xFF5538C9)),
+          icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 20, color: Color(0xFF7039F7)),
           onChanged: (val) { if (val != null) setState(() => _sortBy = val); },
           borderRadius: BorderRadius.circular(16),
           items: ['Popularity', 'Price: Low → High', 'Price: High → Low', 'Newest First', 'Rating (High → Low)']
@@ -437,7 +459,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       margin: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [const Color(0xFF5538C9).withOpacity(0.03), const Color(0xFFF6F8FE)],
+                          colors: [const Color(0xFF7039F7).withOpacity(0.03), const Color(0xFFF8F9FE)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
@@ -448,7 +470,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           tag: product.name,
                           child: product.images.isNotEmpty 
                             ? Image.asset(product.images[0], fit: BoxFit.contain, height: 100)
-                            : Icon(product.icon, color: const Color(0xFF5538C9).withOpacity(0.25), size: 60),
+                            : Icon(product.icon, color: const Color(0xFF7039F7).withOpacity(0.25), size: 60),
                         ),
                       ),
                     ),
@@ -495,14 +517,14 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    Text(product.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16, letterSpacing: -0.3)),
+                    Text(product.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(color: Color(0xFF2A1263), fontWeight: FontWeight.w900, fontSize: 16, letterSpacing: -0.3)),
                     const SizedBox(height: 2),
-                    Text(product.category.toUpperCase(), style: TextStyle(color: Colors.grey.shade400, fontSize: 9, fontWeight: FontWeight.w800, letterSpacing: 0.5)),
+                    Text(product.category.toUpperCase(), style: TextStyle(color: const Color(0xFF7C808E), fontSize: 9, fontWeight: FontWeight.w800, letterSpacing: 0.5)),
                     const SizedBox(height: 14),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("₹${product.price}", style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 19, color: Color(0xFF5538C9))),
+                        Text("₹${product.price}", style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 19, color: Color(0xFF7039F7))),
                         GestureDetector(
                           onTap: () {
                             CartService().addToCart(product);
@@ -526,9 +548,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           child: Container(
                             padding: const EdgeInsets.all(9),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF5538C9),
+                              color: const Color(0xFF7039F7),
                               boxShadow: [
-                                BoxShadow(color: const Color(0xFF5538C9).withOpacity(0.3), blurRadius: 12, offset: const Offset(0, 5)),
+                                BoxShadow(color: const Color(0xFF7039F7).withOpacity(0.3), blurRadius: 12, offset: const Offset(0, 5)),
                               ],
                               borderRadius: BorderRadius.circular(14),
                             ),

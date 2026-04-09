@@ -24,9 +24,9 @@ class _LoginScreenState extends State<LoginScreen> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              const Color(0xFFF1F4FF),
-              const Color(0xFFE0E7FF),
-              const Color(0xFFF1F4FF),
+              const Color(0xFFF8F9FE),
+              const Color(0xFFFFFFFF),
+              const Color(0xFFF8F9FE),
             ],
           ),
         ),
@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 if (Navigator.canPop(context))
                   IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Color(0xFF5538C9)),
+                    icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Color(0xFF7039F7)),
                     style: IconButton.styleFrom(
                       backgroundColor: Colors.white,
                       shadowColor: Colors.black.withOpacity(0.1),
@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: GoogleFonts.outfit(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xFF1E1E1E),
+                    color: const Color(0xFF2A1263),
                     letterSpacing: -0.5,
                   ),
                 ),
@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   "Log in to your account to continue shopping\nthe best CCTV & Automation solutions.",
                   style: GoogleFonts.outfit(
                     fontSize: 16,
-                    color: Colors.black54,
+                    color: const Color(0xFF7C808E),
                     height: 1.5,
                   ),
                 ),
@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       "Forgot Password?",
                       style: GoogleFonts.outfit(
-                        color: const Color(0xFF5538C9),
+                        color: const Color(0xFF7039F7),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -113,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Text(
                       "Don't have an account? ",
-                      style: GoogleFonts.outfit(color: Colors.black54),
+                      style: GoogleFonts.outfit(color: const Color(0xFF7C808E)),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -125,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         "Sign Up",
                         style: GoogleFonts.outfit(
-                          color: const Color(0xFF5538C9),
+                          color: const Color(0xFF7039F7),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -159,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
           style: GoogleFonts.outfit(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: Colors.black87,
+            color: const Color(0xFF2A1263),
           ),
         ),
         const SizedBox(height: 10),
@@ -169,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF5538C9).withOpacity(0.04),
+                color: const Color(0xFF7039F7).withOpacity(0.04),
                 blurRadius: 20,
                 offset: const Offset(0, 10),
               ),
@@ -182,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: GoogleFonts.outfit(color: Colors.black26),
-              prefixIcon: Icon(icon, color: const Color(0xFF5538C9), size: 22),
+              prefixIcon: Icon(icon, color: const Color(0xFF7039F7), size: 22),
               suffixIcon: isPassword
                   ? IconButton(
                       icon: Icon(
@@ -212,13 +212,13 @@ class _LoginScreenState extends State<LoginScreen> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
         gradient: const LinearGradient(
-          colors: [Color(0xFF5538C9), Color(0xFF8A72F1)],
+          colors: [Color(0xFF7039F7), Color(0xFF8A72F1)],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF5538C9).withOpacity(0.3),
+            color: const Color(0xFF7039F7).withOpacity(0.3),
             blurRadius: 15,
             offset: const Offset(0, 8),
           ),

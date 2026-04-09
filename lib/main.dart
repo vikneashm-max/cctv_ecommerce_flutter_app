@@ -16,16 +16,23 @@ class TNAutomationApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        primaryColor: const Color(0xFF5538C9),
+        primaryColor: const Color(0xFF7039F7),
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF5538C9),
-          primary: const Color(0xFF5538C9),
+          seedColor: const Color(0xFF7039F7),
+          primary: const Color(0xFF7039F7),
           secondary: const Color(0xFF8A72F1),
-          surface: const Color(0xFFF6F8FE),
-          surfaceVariant: Colors.white.withOpacity(0.5),
+          surface: const Color(0xFFFFFFFF),
+          surfaceVariant: const Color(0xFFF7F7F7),
+          onSurface: const Color(0xFF2A1263),
+          onSurfaceVariant: const Color(0xFF7C808E),
         ),
-        textTheme: GoogleFonts.outfitTextTheme(Theme.of(context).textTheme),
-        scaffoldBackgroundColor: const Color(0xFFF1F4FF), // Slightly more blue-tinted for better glass contrast
+        textTheme: GoogleFonts.outfitTextTheme(Theme.of(context).textTheme).copyWith(
+          displayLarge: TextStyle(color: const Color(0xFF2A1263)),
+          displayMedium: TextStyle(color: const Color(0xFF2A1263)),
+          bodyLarge: TextStyle(color: const Color(0xFF2A1263)),
+          bodyMedium: TextStyle(color: const Color(0xFF2A1263)),
+        ),
+        scaffoldBackgroundColor: const Color(0xFFF8F9FE),
         appBarTheme: const AppBarTheme(
           centerTitle: false,
           surfaceTintColor: Colors.transparent,

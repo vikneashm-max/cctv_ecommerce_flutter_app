@@ -22,7 +22,7 @@ class ContactScreen extends StatelessWidget {
                   height: 220,
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFF5538C9), Color(0xFF7C61EF)],
+                      colors: [Color(0xFF7039F7), Color(0xFF8A72F1)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -32,7 +32,7 @@ class ContactScreen extends StatelessWidget {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0xFF5538C9),
+                        color: const Color(0xFF7039F7),
                         blurRadius: 20,
                         offset: Offset(0, 5),
                         spreadRadius: -10,
@@ -110,7 +110,7 @@ class ContactScreen extends StatelessWidget {
 
                   const Text(
                     "Follow Our Updates",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, letterSpacing: -0.8),
+                    style: TextStyle(color: Color(0xFF2A1263), fontSize: 20, fontWeight: FontWeight.w900, letterSpacing: -0.8),
                   ),
                   const SizedBox(height: 24),
                   Row(
@@ -147,7 +147,7 @@ class ContactScreen extends StatelessWidget {
               border: Border.all(color: Colors.white.withOpacity(0.4), width: 1.5),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF5538C9).withOpacity(0.04),
+                  color: const Color(0xFF7039F7).withOpacity(0.04),
                   blurRadius: 20,
                   offset: const Offset(0, 10),
                 ),
@@ -158,19 +158,19 @@ class ContactScreen extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF5538C9).withOpacity(0.08),
+                    color: const Color(0xFF7039F7).withOpacity(0.08),
                     borderRadius: BorderRadius.circular(18),
                   ),
-                  child: Icon(icon, color: const Color(0xFF5538C9), size: 28),
+                  child: Icon(icon, color: const Color(0xFF7039F7), size: 28),
                 ),
                 const SizedBox(width: 22),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title, style: TextStyle(color: Colors.grey.shade500, fontSize: 13, fontWeight: FontWeight.w700, letterSpacing: 0.5)),
+                      Text(title, style: TextStyle(color: const Color(0xFF7C808E), fontSize: 13, fontWeight: FontWeight.w700, letterSpacing: 0.5)),
                       const SizedBox(height: 6),
-                      Text(value, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900, height: 1.4, letterSpacing: -0.2)),
+                      Text(value, style: const TextStyle(color: Color(0xFF2A1263), fontSize: 16, fontWeight: FontWeight.w900, height: 1.4, letterSpacing: -0.2)),
                     ],
                   ),
                 ),
@@ -191,10 +191,10 @@ class ContactScreen extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
         boxShadow: [
-          BoxShadow(color: const Color(0xFF5538C9).withOpacity(0.1), blurRadius: 15, offset: const Offset(0, 6)),
+          BoxShadow(color: const Color(0xFF7039F7).withOpacity(0.1), blurRadius: 15, offset: const Offset(0, 6)),
         ],
       ),
-      child: Icon(icon, color: const Color(0xFF5538C9), size: 26),
+      child: Icon(icon, color: const Color(0xFF7039F7), size: 26),
     );
   }
 }

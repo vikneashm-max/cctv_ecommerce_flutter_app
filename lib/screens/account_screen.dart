@@ -13,7 +13,7 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF1F4FF),
+      backgroundColor: const Color(0xFFF8F9FE),
       body: CustomScrollView(
         controller: controller,
         physics: const BouncingScrollPhysics(),
@@ -63,7 +63,7 @@ class AccountScreen extends StatelessWidget {
                 style: GoogleFonts.outfit(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: const Color(0xFF2A1263),
                 ),
               ),
               Container(
@@ -80,7 +80,7 @@ class AccountScreen extends StatelessWidget {
                       "0",
                       style: GoogleFonts.outfit(
                         fontWeight: FontWeight.bold,
-                        color: Colors.black87,
+                        color: const Color(0xFF2A1263),
                         fontSize: 14,
                       ),
                     ),
@@ -109,7 +109,7 @@ class AccountScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: const Color(0xFF2A1263),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
@@ -180,14 +180,14 @@ class AccountScreen extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(icon, color: const Color(0xFF5538C9), size: 22),
+            Icon(icon, color: const Color(0xFF7039F7), size: 22),
             const SizedBox(width: 12),
             Text(
               title,
               style: GoogleFonts.outfit(
                 fontWeight: FontWeight.w600,
                 fontSize: 15,
-                color: Colors.black87,
+                color: const Color(0xFF2A1263),
               ),
             ),
           ],

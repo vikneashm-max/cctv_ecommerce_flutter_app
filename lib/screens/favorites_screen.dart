@@ -9,9 +9,9 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF6F8FE),
+      backgroundColor: const Color(0xFFF8F9FE),
       appBar: AppBar(
-        title: const Text("My Favorites", style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: -0.8)),
+        title: const Text("My Favorites", style: TextStyle(color: Color(0xFF2A1263), fontWeight: FontWeight.w900, letterSpacing: -0.8)),
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
@@ -54,7 +54,7 @@ class FavoritesScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFF5538C9).withOpacity(0.04),
+                        color: const Color(0xFF7039F7).withOpacity(0.04),
                         blurRadius: 15,
                         offset: const Offset(0, 8),
                       ),
@@ -66,20 +66,20 @@ class FavoritesScreen extends StatelessWidget {
                         width: 80,
                         height: 80,
                         decoration: BoxDecoration(
-                          color: const Color(0xFFF0F2FF),
+                          color: const Color(0xFFF7F7F7),
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        child: Icon(product.icon, color: const Color(0xFF5538C9), size: 32),
+                        child: Icon(product.icon, color: const Color(0xFF7039F7), size: 32),
                       ),
                       const SizedBox(width: 16),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(product.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                            Text(product.category, style: TextStyle(color: Colors.grey.shade500, fontSize: 13)),
+                            Text(product.name, style: const TextStyle(color: Color(0xFF2A1263), fontWeight: FontWeight.bold, fontSize: 16)),
+                            Text(product.category, style: TextStyle(color: const Color(0xFF7C808E), fontSize: 13)),
                             const SizedBox(height: 8),
-                            Text("₹${product.price}", style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: Color(0xFF5538C9))),
+                            Text("₹${product.price}", style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: Color(0xFF7039F7))),
                           ],
                         ),
                       ),

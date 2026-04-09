@@ -63,7 +63,7 @@ class _MainScreenState extends State<MainScreen> {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF6F8FE), // Refined premium background color
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor, // Use theme background color
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -145,22 +145,22 @@ class _MainScreenState extends State<MainScreen> {
               onDestinationSelected: _onTabTapped,
               backgroundColor: Colors.transparent,
               elevation: 0,
-              indicatorColor: const Color(0xFF5538C9).withOpacity(0.12),
+              indicatorColor: const Color(0xFF7039F7).withOpacity(0.12),
               height: 70,
               destinations: const [
                 NavigationDestination(
                   icon: Icon(Icons.home_outlined),
-                  selectedIcon: Icon(Icons.home_rounded, color: Color(0xFF5538C9)),
+                  selectedIcon: Icon(Icons.home_rounded, color: Color(0xFF7039F7)),
                   label: 'Home',
                 ),
                 NavigationDestination(
                   icon: Icon(Icons.contact_support_outlined),
-                  selectedIcon: Icon(Icons.contact_support_rounded, color: Color(0xFF5538C9)),
+                  selectedIcon: Icon(Icons.contact_support_rounded, color: Color(0xFF7039F7)),
                   label: 'Contact',
                 ),
                 NavigationDestination(
                   icon: Icon(Icons.person_outline_rounded),
-                  selectedIcon: Icon(Icons.person_rounded, color: Color(0xFF5538C9)),
+                  selectedIcon: Icon(Icons.person_rounded, color: Color(0xFF7039F7)),
                   label: 'Account',
                 ),
               ],
@@ -179,7 +179,7 @@ class _MainScreenState extends State<MainScreen> {
         return Stack(
           children: [
              IconButton(
-              icon: Icon(icon, color: Colors.black87),
+              icon: Icon(icon, color: Color(0xFF2A1263)),
               onPressed: onTap,
             ),
             if (items.isNotEmpty)

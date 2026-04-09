@@ -25,9 +25,9 @@ class _SignupScreenState extends State<SignupScreen> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              const Color(0xFFF1F4FF),
-              const Color(0xFFE0E7FF),
-              const Color(0xFFF1F4FF),
+              const Color(0xFFF8F9FE),
+              const Color(0xFFFFFFFF),
+              const Color(0xFFF8F9FE),
             ],
           ),
         ),
@@ -41,7 +41,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 if (Navigator.canPop(context))
                   IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Color(0xFF5538C9)),
+                    icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Color(0xFF7039F7)),
                     style: IconButton.styleFrom(
                       backgroundColor: Colors.white,
                       shadowColor: Colors.black.withOpacity(0.1),
@@ -54,7 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   style: GoogleFonts.outfit(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xFF1E1E1E),
+                    color: const Color(0xFF2A1263),
                     letterSpacing: -0.5,
                   ),
                 ),
@@ -63,7 +63,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   "Join the TN Automation family and get\nexclusive deals on security solutions.",
                   style: GoogleFonts.outfit(
                     fontSize: 16,
-                    color: Colors.black54,
+                    color: const Color(0xFF7C808E),
                     height: 1.5,
                   ),
                 ),
@@ -103,7 +103,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   children: [
                     Text(
                       "Already have an account? ",
-                      style: GoogleFonts.outfit(color: Colors.black54),
+                      style: GoogleFonts.outfit(color: const Color(0xFF7C808E)),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -115,7 +115,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       child: Text(
                         "Log In",
                         style: GoogleFonts.outfit(
-                          color: const Color(0xFF5538C9),
+                          color: const Color(0xFF7039F7),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -148,7 +148,7 @@ class _SignupScreenState extends State<SignupScreen> {
           style: GoogleFonts.outfit(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: Colors.black87,
+            color: const Color(0xFF2A1263),
           ),
         ),
         const SizedBox(height: 10),
@@ -158,7 +158,7 @@ class _SignupScreenState extends State<SignupScreen> {
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF5538C9).withOpacity(0.04),
+                color: const Color(0xFF7039F7).withOpacity(0.04),
                 blurRadius: 20,
                 offset: const Offset(0, 10),
               ),
@@ -171,7 +171,7 @@ class _SignupScreenState extends State<SignupScreen> {
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: GoogleFonts.outfit(color: Colors.black26),
-              prefixIcon: Icon(icon, color: const Color(0xFF5538C9), size: 22),
+              prefixIcon: Icon(icon, color: const Color(0xFF7039F7), size: 22),
               suffixIcon: isPassword
                   ? IconButton(
                       icon: Icon(
@@ -201,13 +201,13 @@ class _SignupScreenState extends State<SignupScreen> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
         gradient: const LinearGradient(
-          colors: [Color(0xFF1E1E1E), Color(0xFF434343)],
+          colors: [Color(0xFF7039F7), Color(0xFF8959F9)],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: const Color(0xFF7039F7).withOpacity(0.35),
             blurRadius: 15,
             offset: const Offset(0, 8),
           ),
