@@ -234,7 +234,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   Widget _buildHeroBanner() {
     return Container(
       height: 170,
-      color: const Color(0xFFF8F9FE), // Primary Background Color: #F8F9FE
+      color: const Color(0xFFF3F0FF), // Mild Violet Background
       child: PageView(
         controller: _bannerController,
         physics: const BouncingScrollPhysics(),
@@ -361,7 +361,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
         margin: const EdgeInsets.only(right: 14),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF7039F7) : const Color(0xFFF7F7F7),
+          color: isSelected ? const Color(0xFF7039F7) : const Color(0xFFEDE9FF),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: isSelected ? const Color(0xFF7039F7) : Colors.white,
@@ -459,7 +459,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       margin: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [const Color(0xFF7039F7).withOpacity(0.03), const Color(0xFFF8F9FE)],
+                          colors: [const Color(0xFF7039F7).withOpacity(0.03), const Color(0xFFF3F0FF)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
@@ -468,9 +468,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       child: Center(
                         child: Hero(
                           tag: product.name,
-                          child: product.images.isNotEmpty 
-                            ? Image.asset(product.images[0], fit: BoxFit.contain, height: 100)
-                            : Icon(product.icon, color: const Color(0xFF7039F7).withOpacity(0.25), size: 60),
+                          child: Icon(product.icon, color: const Color(0xFF7039F7).withOpacity(0.6), size: 70),
                         ),
                       ),
                     ),

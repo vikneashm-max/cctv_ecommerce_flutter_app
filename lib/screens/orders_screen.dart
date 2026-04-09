@@ -30,7 +30,7 @@ class OrdersScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF1F4FF),
+      backgroundColor: const Color(0xFFF3F0FF),
       appBar: AppBar(
         title: Text(
           "My Orders",
@@ -40,8 +40,8 @@ class OrdersScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black87),
           onPressed: () => Navigator.pop(context),
         ),
-        backgroundColor: Colors.white,
-        elevation: 0.5,
+        backgroundColor: const Color(0xFFF3F0FF),
+        elevation: 0,
       ),
       body: orders.isEmpty
           ? _buildEmptyOrders()
@@ -102,7 +102,7 @@ class OrdersScreen extends StatelessWidget {
                   width: 70,
                   height: 70,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF6F8FE),
+                    color: const Color(0xFFEDE9FF),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(product.icon, color: const Color(0xFF5538C9), size: 30),
