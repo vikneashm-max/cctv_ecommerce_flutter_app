@@ -13,7 +13,7 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FE),
+      backgroundColor: const Color(0xFFF3F0FF),
       body: CustomScrollView(
         controller: controller,
         physics: const BouncingScrollPhysics(),

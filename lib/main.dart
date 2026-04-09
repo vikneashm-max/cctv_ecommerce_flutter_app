@@ -32,7 +32,7 @@ class TNAutomationApp extends StatelessWidget {
           bodyLarge: TextStyle(color: const Color(0xFF2A1263)),
           bodyMedium: TextStyle(color: const Color(0xFF2A1263)),
         ),
-        scaffoldBackgroundColor: const Color(0xFFF8F9FE),
+        scaffoldBackgroundColor: const Color(0xFFF3F0FF),
         appBarTheme: const AppBarTheme(
           centerTitle: false,
           surfaceTintColor: Colors.transparent,

@@ -17,9 +17,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FE),
+      backgroundColor: const Color(0xFFF3F0FF),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFF8F9FE),
+        backgroundColor: const Color(0xFFF3F0FF),
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         actions: [
@@ -163,7 +163,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       // Quantity Selector
                       Container(
                         decoration: BoxDecoration(
-                          color: const Color(0xFFF7F7F7),
+                          color: const Color(0xFFEDE9FF),
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Row(

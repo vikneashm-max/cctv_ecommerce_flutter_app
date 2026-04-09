@@ -25,9 +25,9 @@ class _SignupScreenState extends State<SignupScreen> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              const Color(0xFFF8F9FE),
+              const Color(0xFFF3F0FF),
               const Color(0xFFFFFFFF),
-              const Color(0xFFF8F9FE),
+              const Color(0xFFF3F0FF),
             ],
           ),
         ),

@@ -8,7 +8,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FE),
+      backgroundColor: const Color(0xFFF3F0FF),
       appBar: AppBar(
         title: const Text("My Cart", style: TextStyle(color: Color(0xFF2A1263), fontWeight: FontWeight.w900, letterSpacing: -0.8)),
         backgroundColor: Colors.transparent,
@@ -69,7 +69,7 @@ class CartScreen extends StatelessWidget {
                             width: 80,
                             height: 80,
                             decoration: BoxDecoration(
-                              color: const Color(0xFFF7F7F7),
+                              color: const Color(0xFFEDE9FF),
                               borderRadius: BorderRadius.circular(16),
                             ),
                             child: Icon(product.icon, color: const Color(0xFF7039F7), size: 32),
