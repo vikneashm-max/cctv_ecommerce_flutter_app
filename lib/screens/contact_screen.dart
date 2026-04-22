@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../theme/app_colors.dart';
 import '../widgets/animated_scale_card.dart';
 
 class ContactScreen extends StatelessWidget {
@@ -9,121 +11,105 @@ class ContactScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent, // Handled by MainScreen
+      backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
         controller: controller,
         physics: const BouncingScrollPhysics(),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Premium Header
-            Stack(
-              children: [
-                Container(
-                  height: 220,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF7039F7), Color(0xFF8A72F1)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(48),
-                      bottomRight: Radius.circular(48),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFF7039F7),
-                        blurRadius: 20,
-                        offset: Offset(0, 5),
-                        spreadRadius: -10,
-                      )
-                    ],
-                  ),
-                ),
-                SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(24, 30, 24, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Get In Touch",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 36,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: -1.5,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "Our expert team is here to secure\nyour world 24/7.",
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.85),
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500,
-                            height: 1.4,
-                          ),
-                        ),
-                      ],
+            // Header
+            Padding(
+              padding: const EdgeInsets.fromLTRB(24, 40, 24, 40),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "GET IN TOUCH",
+                    style: GoogleFonts.inter(
+                      color: AppColors.primary,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 2,
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 12),
+                  Text(
+                    "CONTACT\nUS",
+                    style: GoogleFonts.inter(
+                      color: AppColors.onSurface,
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      height: 0.95,
+                      letterSpacing: -1.5,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    "Direct access to our support team. Available for assistance and product consultations.",
+                    style: GoogleFonts.inter(
+                      color: AppColors.onSurfaceVariant,
+                      fontSize: 16,
+                      height: 1.5,
+                    ),
+                  ),
+                ],
+              ),
             ),
-
-            const SizedBox(height: 36),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
                 children: [
-                  _buildNewContactCard(
+                  _buildTechnicalContactCard(
                     Icons.location_on_rounded, 
-                    "Main Headquarters", 
+                    "OFFICE ADDRESS", 
                     "2/206, main road, Thittai, Sirkali, Tamil Nadu 609111",
-                    "Navigate",
                   ),
-                  const SizedBox(height: 18),
-                  _buildNewContactCard(
+                  const SizedBox(height: 16),
+                  _buildTechnicalContactCard(
                     Icons.phone_rounded, 
-                    "Phone Support", 
+                    "PHONE NUMBER", 
                     "+91 97863 37243",
-                    "Call Now",
                   ),
-                  const SizedBox(height: 18),
-                  _buildNewContactCard(
+                  const SizedBox(height: 16),
+                  _buildTechnicalContactCard(
                     Icons.email_rounded, 
-                    "Email Address", 
+                    "EMAIL ADDRESS", 
                     "tnautomations@gmail.com",
-                    "Send Email",
                   ),
-                  const SizedBox(height: 18),
-                  _buildNewContactCard(
+                  const SizedBox(height: 16),
+                  _buildTechnicalContactCard(
                     Icons.access_time_filled_rounded, 
-                    "Operating Hours", 
-                    "Mon - Sat: 9:00 AM - 8:00 PM\nSunday: Closed",
-                    "Check Status",
+                    "WORKING HOURS", 
+                    "Mon - Sat: 09:00 - 20:00\nSunday: Closed",
                   ),
 
-                  const SizedBox(height: 48),
+                  const SizedBox(height: 64),
 
-                  const Text(
-                    "Follow Our Updates",
-                    style: TextStyle(color: Color(0xFF2A1263), fontSize: 20, fontWeight: FontWeight.w900, letterSpacing: -0.8),
+                  Center(
+                    child: Text(
+                      "SOCIAL MEDIA",
+                      style: GoogleFonts.inter(
+                        color: AppColors.onSurfaceVariant,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 2,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 24),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildSocialIcon(Icons.facebook_rounded),
-                      const SizedBox(width: 20),
-                      _buildSocialIcon(Icons.camera_alt_rounded),
-                      const SizedBox(width: 20),
-                      _buildSocialIcon(Icons.business_rounded),
+                      _buildSocialCommand(Icons.facebook_rounded),
+                      const SizedBox(width: 24),
+                      _buildSocialCommand(Icons.camera_alt_rounded),
+                      const SizedBox(width: 24),
+                      _buildSocialCommand(Icons.business_rounded),
                     ],
                   ),
-                  const SizedBox(height: 80),
+                  const SizedBox(height: 120),
                 ],
               ),
             ),
@@ -133,68 +119,79 @@ class ContactScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildNewContactCard(IconData icon, String title, String value, String actionLabel) {
+  Widget _buildTechnicalContactCard(IconData icon, String title, String value) {
     return AnimatedScaleCard(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(28),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-          child: Container(
-            padding: const EdgeInsets.all(26),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.5),
-              borderRadius: BorderRadius.circular(28),
-              border: Border.all(color: Colors.white.withOpacity(0.4), width: 1.5),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFF7039F7).withOpacity(0.04),
-                  blurRadius: 20,
-                  offset: const Offset(0, 10),
-                ),
-              ],
+      child: Container(
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: AppColors.surfaceLevel1,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: AppColors.onSurfaceVariant.withOpacity(0.05)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 30,
+              offset: const Offset(0, 10),
             ),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF7039F7).withOpacity(0.08),
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                  child: Icon(icon, color: const Color(0xFF7039F7), size: 28),
-                ),
-                const SizedBox(width: 22),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(title, style: TextStyle(color: const Color(0xFF7C808E), fontSize: 13, fontWeight: FontWeight.w700, letterSpacing: 0.5)),
-                      const SizedBox(height: 6),
-                      Text(value, style: const TextStyle(color: Color(0xFF2A1263), fontSize: 16, fontWeight: FontWeight.w900, height: 1.4, letterSpacing: -0.2)),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Icon(Icons.arrow_forward_ios_rounded, size: 16, color: Colors.grey.shade400),
-              ],
+          ],
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: AppColors.surfaceLevel2,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.primary.withOpacity(0.1)),
+              ),
+              child: Icon(icon, color: AppColors.primary, size: 24),
             ),
-          ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title, 
+                    style: GoogleFonts.inter(
+                      color: AppColors.primary, 
+                      fontSize: 10, 
+                      fontWeight: FontWeight.w900, 
+                      letterSpacing: 1,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    value, 
+                    style: GoogleFonts.inter(
+                      color: AppColors.onSurface, 
+                      fontSize: 15, 
+                      fontWeight: FontWeight.w700, 
+                      height: 1.4,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildSocialIcon(IconData icon) {
+  Widget _buildSocialCommand(IconData icon) {
     return Container(
-      padding: const EdgeInsets.all(14),
+      width: 60,
+      height: 60,
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: [
-          BoxShadow(color: const Color(0xFF7039F7).withOpacity(0.1), blurRadius: 15, offset: const Offset(0, 6)),
-        ],
+        color: AppColors.surfaceLevel1,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.onSurfaceVariant.withOpacity(0.1)),
       ),
-      child: Icon(icon, color: const Color(0xFF7039F7), size: 26),
+      child: Icon(icon, color: AppColors.onSurface, size: 24),
     );
   }
 }
+
+

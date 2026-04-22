@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../theme/app_colors.dart';
+import '../services/theme_service.dart';
 import 'orders_screen.dart';
 import 'favorites_screen.dart';
 import 'contact_screen.dart';
@@ -13,23 +15,34 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF3F0FF),
+      backgroundColor: Colors.transparent,
       body: CustomScrollView(
         controller: controller,
         physics: const BouncingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 10),
-                _buildFlipkartProfileCard(context),
-                const SizedBox(height: 16),
-                _buildActionButtons(context),
-                const SizedBox(height: 48),
-                _buildLogoutButton(context),
-                const SizedBox(height: 100),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 12),
+                  _buildSectionHeader("MY PROFILE"),
+                  const SizedBox(height: 24),
+                  _buildProfileCard(context),
+                  const SizedBox(height: 48),
+                  _buildSectionHeader("QUICK ACTIONS"),
+                  const SizedBox(height: 24),
+                  _buildActionGrid(context),
+                  const SizedBox(height: 48),
+                  _buildSectionHeader("APP SETTINGS"),
+                  const SizedBox(height: 16),
+                  _buildThemeToggle(),
+                  const SizedBox(height: 64),
+                  _buildLogoutButton(context),
+                  const SizedBox(height: 120),
+                ],
+              ),
             ),
           ),
         ],
@@ -37,18 +50,31 @@ class AccountScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildFlipkartProfileCard(BuildContext context) {
+  Widget _buildSectionHeader(String title) {
+    return Text(
+      title.toUpperCase(),
+      style: GoogleFonts.inter(
+        color: AppColors.onSurfaceVariant,
+        fontSize: 11,
+        fontWeight: FontWeight.w900,
+        letterSpacing: 2,
+      ),
+    );
+  }
+
+  Widget _buildProfileCard(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      padding: const EdgeInsets.all(20),
+      width: double.infinity,
+      padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        color: AppColors.surfaceLevel1,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: AppColors.primary.withOpacity(0.2)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            color: AppColors.primary.withOpacity(0.05),
+            blurRadius: 40,
+            offset: const Offset(0, 20),
           ),
         ],
       ),
@@ -58,136 +84,131 @@ class AccountScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "Vikneash M",
-                style: GoogleFonts.outfit(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF2A1263),
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "VIKNEASH M",
+                    style: GoogleFonts.inter(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w900,
+                      color: AppColors.onSurface,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    "ELITE CUSTOMER",
+                    style: GoogleFonts.inter(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w900,
+                      color: AppColors.primary,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                ],
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                width: 60,
+                height: 60,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.amber.shade700, width: 1.5),
-                  borderRadius: BorderRadius.circular(20),
+                  color: AppColors.surfaceLevel2,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppColors.onSurfaceVariant.withOpacity(0.1)),
                 ),
-                child: Row(
-                  children: [
-                    Icon(Icons.bolt_rounded, size: 18, color: Colors.amber.shade700),
-                    const SizedBox(width: 4),
-                    Text(
-                      "0",
-                      style: GoogleFonts.outfit(
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFF2A1263),
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
+                child: Icon(Icons.person_rounded, color: AppColors.onSurface, size: 32),
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          Text(
-            "Get Early Access, and 15% bank offer\nwith TN Premium BLACK",
-            style: GoogleFonts.outfit(
-              fontSize: 14,
-              color: Colors.black54,
-              height: 1.4,
+          const SizedBox(height: 32),
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: AppColors.surfaceLevel2,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.verified_user_rounded, color: AppColors.tertiary, size: 24),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "ELITE MEMBER",
+                        style: GoogleFonts.inter(
+                          color: AppColors.onSurface,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        "PRIORITY SUPPORT & EXCLUSIVE DEALS",
+                        style: GoogleFonts.inter(
+                          color: AppColors.onSurfaceVariant,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 16),
-          _buildExploreButton(),
         ],
       ),
     );
   }
 
-  Widget _buildExploreButton() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(
-        color: const Color(0xFF2A1263),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        "Explore BLACK",
-        style: GoogleFonts.outfit(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
+  Widget _buildActionGrid(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(child: _buildActionTile(Icons.inventory_2_rounded, "MY ORDERS", () => Navigator.push(context, MaterialPageRoute(builder: (context) => OrdersScreen())))),
+            const SizedBox(width: 16),
+            Expanded(child: _buildActionTile(Icons.favorite_rounded, "FAVORITES", () => Navigator.push(context, MaterialPageRoute(builder: (context) => FavoritesScreen())))),
+          ],
         ),
-      ),
+        const SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(child: _buildActionTile(Icons.headset_mic_rounded, "SUPPORT", () => Navigator.push(context, MaterialPageRoute(builder: (context) => ContactScreen(controller: ScrollController()))))),
+            const SizedBox(width: 16),
+            Expanded(child: _buildActionTile(Icons.settings_rounded, "SETTINGS", () {})),
+          ],
+        ),
+      ],
     );
   }
 
-  Widget _buildActionButtons(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: _buildActionTile(
-                  context,
-                  Icons.inventory_2_outlined,
-                  "Orders",
-                  () => Navigator.push(context, MaterialPageRoute(builder: (context) => const OrdersScreen())),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _buildActionTile(
-                  context,
-                  Icons.favorite_outline_rounded,
-                  "Favourites",
-                  () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FavoritesScreen())),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              Expanded(
-                child: _buildActionTile(
-                  context,
-                  Icons.headset_mic_outlined,
-                  "Help Center",
-                  () => Navigator.push(context, MaterialPageRoute(builder: (context) => ContactScreen(controller: ScrollController()))),
-                ),
-              ),
-              const Expanded(child: SizedBox()), // Placeholder for balance
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildActionTile(BuildContext context, IconData icon, String title, VoidCallback onTap) {
+  Widget _buildActionTile(IconData icon, String title, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        height: 100,
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.black.withOpacity(0.05)),
+          color: AppColors.surfaceLevel1,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: AppColors.onSurfaceVariant.withOpacity(0.05)),
         ),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(icon, color: const Color(0xFF7039F7), size: 22),
-            const SizedBox(width: 12),
+            Icon(icon, color: AppColors.primary, size: 24),
             Text(
               title,
-              style: GoogleFonts.outfit(
-                fontWeight: FontWeight.w600,
-                fontSize: 15,
-                color: const Color(0xFF2A1263),
+              style: GoogleFonts.inter(
+                fontSize: 10,
+                fontWeight: FontWeight.w900,
+                color: AppColors.onSurface,
+                letterSpacing: 0.5,
               ),
             ),
           ],
@@ -196,38 +217,73 @@ class AccountScreen extends StatelessWidget {
     );
   }
 
+  Widget _buildThemeToggle() {
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: ThemeService().themeMode,
+      builder: (context, mode, child) {
+        final isDark = mode == ThemeMode.dark;
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          decoration: BoxDecoration(
+            color: AppColors.surfaceLevel1,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded, color: AppColors.primary),
+                  const SizedBox(width: 16),
+                  Text(
+                    isDark ? "Dark Mode" : "Light Mode",
+                    style: GoogleFonts.inter(
+                      color: AppColors.onSurface,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+              Switch(
+                value: isDark,
+                onChanged: (value) => ThemeService().toggleTheme(),
+                activeColor: AppColors.primary,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   Widget _buildLogoutButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Container(
-        width: double.infinity,
-        height: 56,
-        child: TextButton(
-          onPressed: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()),
-              (route) => false,
-            );
-          },
-          style: TextButton.styleFrom(
-            backgroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-              side: const BorderSide(color: Color(0xFFFF4B4B), width: 1),
-            ),
-          ),
-          child: Text(
-            "Log Out",
-            style: GoogleFonts.outfit(
-              color: const Color(0xFFFF4B4B),
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
+    return Container(
+      width: double.infinity,
+      height: 64,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.onSurfaceVariant.withOpacity(0.1)),
+      ),
+      child: TextButton(
+        onPressed: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+            (route) => false,
+          );
+        },
+        child: Text(
+          "LOGOUT",
+          style: GoogleFonts.inter(
+            color: const Color(0xFFFF4B4B),
+            fontWeight: FontWeight.w900,
+            letterSpacing: 2,
+            fontSize: 12,
           ),
         ),
       ),
     );
   }
 }
+
+

@@ -1,5 +1,7 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../theme/app_colors.dart';
 import 'main_screen.dart';
 import 'login_screen.dart';
 
@@ -19,119 +21,142 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              const Color(0xFFF3F0FF),
-              const Color(0xFFFFFFFF),
-              const Color(0xFFF3F0FF),
-            ],
-          ),
-        ),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 40),
-                if (Navigator.canPop(context))
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Color(0xFF7039F7)),
-                    style: IconButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      shadowColor: Colors.black.withOpacity(0.1),
-                      elevation: 5,
-                    ),
-                  ),
-                const SizedBox(height: 40),
-                Text(
-                  "Create Account",
-                  style: GoogleFonts.outfit(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFF2A1263),
-                    letterSpacing: -0.5,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  "Join the TN Automation family and get\nexclusive deals on security solutions.",
-                  style: GoogleFonts.outfit(
-                    fontSize: 16,
-                    color: const Color(0xFF7C808E),
-                    height: 1.5,
-                  ),
-                ),
-                const SizedBox(height: 40),
-                _buildTextField(
-                  label: "Full Name",
-                  hint: "John Doe",
-                  controller: _nameController,
-                  icon: Icons.person_outline_rounded,
-                ),
-                const SizedBox(height: 24),
-                _buildTextField(
-                  label: "Email Address",
-                  hint: "example@gmail.com",
-                  controller: _emailController,
-                  icon: Icons.email_outlined,
-                ),
-                const SizedBox(height: 24),
-                _buildTextField(
-                  label: "Password",
-                  hint: "••••••••",
-                  controller: _passwordController,
-                  icon: Icons.lock_outline_rounded,
-                  isPassword: true,
-                  isPasswordVisible: _isPasswordVisible,
-                  onToggleVisibility: () {
-                    setState(() {
-                      _isPasswordVisible = !_isPasswordVisible;
-                    });
-                  },
-                ),
-                const SizedBox(height: 40),
-                _buildSignupButton(),
-                const SizedBox(height: 40),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Already have an account? ",
-                      style: GoogleFonts.outfit(color: const Color(0xFF7C808E)),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const LoginScreen()),
-                        );
-                      },
-                      child: Text(
-                        "Log In",
-                        style: GoogleFonts.outfit(
-                          color: const Color(0xFF7039F7),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 24),
-              ],
+      backgroundColor: AppColors.foundation,
+      body: Stack(
+        children: [
+          // Background Aesthetic Elements
+          Positioned(
+            bottom: -100,
+            left: -100,
+            child: Container(
+              width: 300,
+              height: 300,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.tertiary.withOpacity(0.05),
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 100, sigmaY: 100),
+                child: Container(color: Colors.transparent),
+              ),
             ),
           ),
-        ),
+          
+          SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 40),
+                  IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: Icon(Icons.arrow_back_rounded, color: AppColors.onSurface),
+                    style: IconButton.styleFrom(
+                      backgroundColor: AppColors.surfaceLevel1,
+                      padding: const EdgeInsets.all(12),
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  
+                  // Editorial Headline
+                  Text(
+                    "Sign Up",
+                    style: GoogleFonts.inter(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.onSurface,
+                      height: 1.1,
+                      letterSpacing: -1,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    "Create your account to start shopping.",
+                    style: GoogleFonts.inter(
+                      fontSize: 16,
+                      color: AppColors.onSurfaceVariant,
+                      height: 1.5,
+                    ),
+                  ),
+                  const SizedBox(height: 48),
+
+                  // Input Fields
+                  _buildInputField(
+                    label: "FULL NAME",
+                    hint: "Enter your full name",
+                    controller: _nameController,
+                    icon: Icons.person_rounded,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildInputField(
+                    label: "EMAIL ADDRESS",
+                    hint: "yourname@example.com",
+                    controller: _emailController,
+                    icon: Icons.alternate_email_rounded,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildInputField(
+                    label: "PASSWORD",
+                    hint: "••••••••",
+                    controller: _passwordController,
+                    icon: Icons.lock_outline_rounded,
+                    isPassword: true,
+                    isPasswordVisible: _isPasswordVisible,
+                    onToggleVisibility: () {
+                      setState(() {
+                        _isPasswordVisible = !_isPasswordVisible;
+                      });
+                    },
+                  ),
+                  
+                  const SizedBox(height: 48),
+                  
+                  // Primary Action
+                  _buildSignupButton(),
+                  
+                  const SizedBox(height: 40),
+                  
+                  // Secondary Navigation
+                  Center(
+                    child: Column(
+                      children: [
+                        Text(
+                          "Already Registered?",
+                          style: GoogleFonts.inter(color: AppColors.onSurfaceVariant),
+                        ),
+                        const SizedBox(height: 8),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => LoginScreen()),
+                            );
+                          },
+                          child: Text(
+                            "LOGIN",
+                            style: GoogleFonts.inter(
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.5,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildTextField({
+  Widget _buildInputField({
     required String label,
     required String hint,
     required TextEditingController controller,
@@ -145,48 +170,39 @@ class _SignupScreenState extends State<SignupScreen> {
       children: [
         Text(
           label,
-          style: GoogleFonts.outfit(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: const Color(0xFF2A1263),
+          style: GoogleFonts.inter(
+            fontSize: 11,
+            fontWeight: FontWeight.w800,
+            color: AppColors.onSurfaceVariant,
+            letterSpacing: 1.5,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 12),
         Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.surfaceLevel1,
             borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF7039F7).withOpacity(0.04),
-                blurRadius: 20,
-                offset: const Offset(0, 10),
-              ),
-            ],
           ),
           child: TextField(
             controller: controller,
             obscureText: isPassword && !isPasswordVisible,
-            style: GoogleFonts.outfit(fontSize: 16),
+            style: GoogleFonts.inter(color: AppColors.onSurface),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: GoogleFonts.outfit(color: Colors.black26),
-              prefixIcon: Icon(icon, color: const Color(0xFF7039F7), size: 22),
+              hintStyle: GoogleFonts.inter(color: AppColors.onSurfaceVariant.withOpacity(0.3)),
+              prefixIcon: Icon(icon, color: AppColors.primary, size: 20),
               suffixIcon: isPassword
                   ? IconButton(
                       icon: Icon(
                         isPasswordVisible ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                        color: Colors.black38,
-                        size: 20,
+                        color: AppColors.onSurfaceVariant.withOpacity(0.5),
+                        size: 18,
                       ),
                       onPressed: onToggleVisibility,
                     )
                   : null,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide.none,
-              ),
-              contentPadding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+              border: InputBorder.none,
+              contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             ),
           ),
         ),
@@ -197,19 +213,19 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget _buildSignupButton() {
     return Container(
       width: double.infinity,
-      height: 60,
+      height: 64,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-        gradient: const LinearGradient(
-          colors: [Color(0xFF7039F7), Color(0xFF8959F9)],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
+        borderRadius: BorderRadius.circular(16),
+        gradient: LinearGradient(
+          colors: [AppColors.primaryContainer, AppColors.primary],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF7039F7).withOpacity(0.35),
-            blurRadius: 15,
-            offset: const Offset(0, 8),
+            color: AppColors.primaryContainer.withOpacity(0.3),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
           ),
         ],
       ),
@@ -223,16 +239,23 @@ class _SignupScreenState extends State<SignupScreen> {
               (route) => false,
             );
           },
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(16),
           child: Center(
-            child: Text(
-              "Sign Up",
-              style: GoogleFonts.outfit(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                letterSpacing: 0.5,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "SIGN UP",
+                  style: GoogleFonts.inter(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                    letterSpacing: 1,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                const Icon(Icons.verified_user_rounded, color: Colors.white, size: 20),
+              ],
             ),
           ),
         ),
@@ -240,3 +263,4 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 }
+

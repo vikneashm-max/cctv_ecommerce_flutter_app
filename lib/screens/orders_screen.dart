@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/product.dart';
+import '../theme/app_colors.dart';
 
 class OrdersScreen extends StatelessWidget {
   const OrdersScreen({super.key});
@@ -12,16 +13,16 @@ class OrdersScreen extends StatelessWidget {
       {
         'id': 'ORD-2024-8842',
         'date': 'Oct 12, 2023',
-        'status': 'Delivered',
+        'status': 'DELIVERED',
         'total': '₹3,500',
         'items': [
-          Product(name: "4MP IP Bullet Camera", category: "Cameras", price: 3500, icon: Icons.camera_alt_rounded, rating: 4.5, popularity: 120, addedDate: DateTime(2023, 10, 1), images: []),
+          Product(name: "4MP IP Bullet Camera", category: "Cameras", price: 3500, icon: Icons.videocam_rounded, rating: 4.5, popularity: 120, addedDate: DateTime(2023, 10, 1), images: []),
         ],
       },
       {
         'id': 'ORD-2024-9120',
         'date': 'Jan 15, 2024',
-        'status': 'In Transit',
+        'status': 'IN TRANSIT',
         'total': '₹6,800',
         'items': [
           Product(name: "2TB Surveillance HDD", category: "Storage", price: 6800, icon: Icons.storage_rounded, rating: 4.9, popularity: 300, addedDate: DateTime(2023, 8, 5), images: []),
@@ -30,23 +31,28 @@ class OrdersScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF3F0FF),
+      backgroundColor: AppColors.foundation,
       appBar: AppBar(
         title: Text(
-          "My Orders",
-          style: GoogleFonts.outfit(fontWeight: FontWeight.bold, color: Colors.black87),
+          "MY ORDERS",
+          style: GoogleFonts.inter(
+            color: AppColors.onSurface,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 1.5,
+            fontSize: 16,
+          ),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black87),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.onSurface),
           onPressed: () => Navigator.pop(context),
         ),
-        backgroundColor: const Color(0xFFF3F0FF),
+        backgroundColor: AppColors.foundation,
         elevation: 0,
       ),
       body: orders.isEmpty
           ? _buildEmptyOrders()
           : ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(24),
               itemCount: orders.length,
               itemBuilder: (context, index) {
                 final order = orders[index];
@@ -61,16 +67,16 @@ class OrdersScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.shopping_bag_outlined, size: 80, color: Colors.grey.shade300),
-          const SizedBox(height: 16),
+          Icon(Icons.history_rounded, size: 80, color: AppColors.onSurfaceVariant.withOpacity(0.2)),
+          const SizedBox(height: 24),
           Text(
-            "No orders yet",
-            style: GoogleFonts.outfit(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.grey),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            "Your order history will appear here.",
-            style: GoogleFonts.outfit(color: Colors.grey.shade400),
+            "NO ORDERS FOUND",
+            style: GoogleFonts.inter(
+              fontSize: 14,
+              fontWeight: FontWeight.w900,
+              color: AppColors.onSurfaceVariant,
+              letterSpacing: 1,
+            ),
           ),
         ],
       ),
@@ -79,54 +85,58 @@ class OrdersScreen extends StatelessWidget {
 
   Widget _buildOrderCard(Map<String, dynamic> order) {
     final product = order['items'][0] as Product;
+    final bool isDelivered = order['status'] == 'DELIVERED';
+    
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        color: AppColors.surfaceLevel1,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: AppColors.onSurfaceVariant.withOpacity(0.05)),
       ),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(20.0),
             child: Row(
               children: [
                 Container(
                   width: 70,
                   height: 70,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFEDE9FF),
+                    color: AppColors.surfaceLevel2,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Icon(product.icon, color: const Color(0xFF5538C9), size: 30),
+                  child: Icon(product.icon, color: AppColors.primary, size: 28),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 20),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        order['status'],
-                        style: GoogleFonts.outfit(
-                          color: order['status'] == 'Delivered' ? Colors.green : Colors.orange,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: (isDelivered ? AppColors.success : AppColors.primary).withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          order['status'],
+                          style: GoogleFonts.inter(
+                            color: isDelivered ? AppColors.success : AppColors.primary,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 9,
+                            letterSpacing: 1,
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 8),
                       Text(
                         product.name,
-                        style: GoogleFonts.outfit(
+                        style: GoogleFonts.inter(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Colors.black87,
+                          fontSize: 15,
+                          color: AppColors.onSurface,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -134,34 +144,37 @@ class OrdersScreen extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(
                         "Ordered on ${order['date']}",
-                        style: GoogleFonts.outfit(
-                          color: Colors.black45,
-                          fontSize: 12,
+                        style: GoogleFonts.inter(
+                          color: AppColors.onSurfaceVariant,
+                          fontSize: 11,
                         ),
                       ),
                     ],
                   ),
                 ),
-                const Icon(Icons.chevron_right_rounded, color: Colors.black26),
+                Icon(Icons.chevron_right_rounded, color: AppColors.onSurfaceVariant.withOpacity(0.5)),
               ],
             ),
           ),
-          const Divider(height: 1),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            decoration: BoxDecoration(
+              color: AppColors.surfaceLevel2.withOpacity(0.5),
+              borderRadius: const BorderRadius.vertical(bottom: Radius.circular(20)),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Order ID: ${order['id']}",
-                  style: GoogleFonts.outfit(color: Colors.black54, fontSize: 13),
+                  "ID: ${order['id']}",
+                  style: GoogleFonts.inter(color: AppColors.onSurfaceVariant, fontSize: 11, fontWeight: FontWeight.w600),
                 ),
                 Text(
                   order['total'],
-                  style: GoogleFonts.outfit(
+                  style: GoogleFonts.inter(
                     fontWeight: FontWeight.w900,
                     fontSize: 16,
-                    color: const Color(0xFF5538C9),
+                    color: AppColors.onSurface,
                   ),
                 ),
               ],
@@ -172,3 +185,5 @@ class OrdersScreen extends StatelessWidget {
     );
   }
 }
+
+
