@@ -1,14 +1,14 @@
 import 'dart:ui';
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../services/cart_service.dart';
 import '../theme/app_colors.dart';
 import 'products_screen.dart';
 import 'contact_screen.dart';
-import 'cart_screen.dart';
-import 'favorites_screen.dart';
-import '../services/cart_service.dart';
 import 'account_screen.dart';
+import 'favorites_screen.dart';
+import 'cart_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -26,15 +26,18 @@ class _MainScreenState extends State<MainScreen> {
 
   void _onTabTapped(int index) {
     if (_currentIndex == index) {
-      ScrollController currentController;
-      if (index == 0) currentController = _productsScrollController;
-      else if (index == 1) currentController = _contactScrollController;
-      else currentController = _accountScrollController;
-
-      if (currentController.hasClients) {
-        currentController.animateTo(
-          0,
-          duration: const Duration(milliseconds: 700),
+      // Scroll to top smoothly if the same tab is tapped
+      ScrollController? controller;
+      switch (index) {
+        case 0: controller = _productsScrollController; break;
+        case 1: controller = _contactScrollController; break;
+        case 2: controller = _accountScrollController; break;
+      }
+      
+      if (controller != null && controller.hasClients) {
+        controller.animateTo(
+          0.0,
+          duration: const Duration(milliseconds: 500),
           curve: Curves.easeOutQuart,
         );
       }
@@ -56,80 +59,108 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> screens = [
-      ProductsScreen(controller: _productsScrollController),
+      ProductsScreen(
+        controller: _productsScrollController,
+        onTabChanged: (index) => setState(() => _currentIndex = index),
+      ),
       ContactScreen(controller: _contactScrollController),
       AccountScreen(controller: _accountScrollController),
     ];
 
     return Scaffold(
-      backgroundColor: AppColors.foundation,
-      extendBody: true, // Allow body to extend behind bottom nav
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: AppColors.foundation.withOpacity(0.8),
+        backgroundColor: Colors.white,
         elevation: 0,
         surfaceTintColor: Colors.transparent,
-        flexibleSpace: ClipRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-            child: Container(color: Colors.transparent),
-          ),
-        ),
         title: Row(
           children: [
-            Container(
-              height: 36,
-              width: 36,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.onSurface.withOpacity(0.05),
-              ),
-              child: ClipOval(
-                child: ColorFiltered(
-                  colorFilter: const ColorFilter.mode(Colors.white, BlendMode.multiply),
-                  child: Image.asset(
-                    'assets/images/icon.png',
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => Icon(Icons.shield_outlined, color: AppColors.primary, size: 20),
-                  ),
-                ),
-              ),
+            Image.asset(
+              'assets/images/icon.png',
+              height: 32,
+              errorBuilder: (context, error, stackTrace) => Icon(Icons.shield_rounded, color: AppColors.primary, size: 28),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 10),
             Text(
-              "TN AUTOMATION",
-              style: GoogleFonts.inter(
-                color: AppColors.onSurface,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 1.5,
-                fontSize: 16,
+              "TN Automation",
+              style: GoogleFonts.manrope(
+                color: const Color(0xFF0052FF),
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
             ),
           ],
         ),
         actions: [
-          _buildAppBarAction(
-            Icons.favorite_outline_rounded, 
-            CartService().favoriteItems, 
-            () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const FavoritesScreen()));
-            }
+          IconButton(
+            icon: Icon(Icons.favorite_outline_rounded, color: Colors.grey[600], size: 24),
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FavoritesScreen())),
           ),
-          _buildAppBarAction(
-            Icons.shopping_bag_outlined, 
-            CartService().cartItems, 
-            () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const CartScreen()));
-            }
+          ValueListenableBuilder<List>(
+            valueListenable: CartService().cartItems,
+            builder: (context, items, child) {
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.shopping_cart_outlined, color: Colors.grey[600], size: 24),
+                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen())),
+                  ),
+                  if (items.isNotEmpty)
+                    Positioned(
+                      right: 8,
+                      top: 8,
+                      child: Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: const BoxDecoration(color: Color(0xFF0052FF), shape: BoxShape.circle),
+                        constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
+                        child: Text(
+                          '${items.length}',
+                          style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 8),
         ],
       ),
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 400),
-        child: KeyedSubtree(
-          key: ValueKey<int>(_currentIndex),
-          child: screens[_currentIndex],
-        ),
+      body: Column(
+        children: [
+          // Search Bar
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.06),
+                    blurRadius: 15,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                  icon: Icon(Icons.search, color: Colors.grey[400], size: 20),
+                  hintText: "Search for cameras, security kits...",
+                  hintStyle: GoogleFonts.inter(color: Colors.grey[400], fontSize: 14),
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.symmetric(vertical: 14),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: screens[_currentIndex],
+          ),
+        ],
       ),
       bottomNavigationBar: _buildBottomNav(),
     );
@@ -137,41 +168,23 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _buildBottomNav() {
     return Container(
-      height: 90,
-      margin: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+      height: 70,
       decoration: BoxDecoration(
-        color: AppColors.surfaceLevel2.withOpacity(0.8),
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(color: AppColors.onSurfaceVariant.withOpacity(0.1)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.3),
-            blurRadius: 30,
-            offset: const Offset(0, 10),
-          ),
-        ],
+        color: Colors.white,
+        border: Border(top: BorderSide(color: Colors.grey[100]!)),
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(32),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildNavItem(0, Icons.home_rounded, Icons.home_outlined, "HOME"),
-                _buildNavItem(1, Icons.contact_support_rounded, Icons.contact_support_outlined, "CONTACT"),
-                _buildNavItem(2, Icons.person_rounded, Icons.person_outline_rounded, "ACCOUNT"),
-              ],
-            ),
-          ),
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildNavItem(0, Icons.home_rounded, "Home"),
+          _buildNavItem(1, Icons.build_rounded, "Service"),
+          _buildNavItem(2, Icons.person_rounded, "Account"),
+        ],
       ),
     );
   }
 
-  Widget _buildNavItem(int index, IconData selectedIcon, IconData unselectedIcon, String label) {
+  Widget _buildNavItem(int index, IconData icon, String label) {
     final isSelected = _currentIndex == index;
     return GestureDetector(
       onTap: () => _onTabTapped(index),
@@ -179,67 +192,29 @@ class _MainScreenState extends State<MainScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
             decoration: BoxDecoration(
-              color: isSelected ? AppColors.primaryContainer.withOpacity(0.15) : Colors.transparent,
+              color: isSelected ? const Color(0xFFF0F4FF) : Colors.transparent,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Icon(
-              isSelected ? selectedIcon : unselectedIcon,
-              color: isSelected ? AppColors.primary : AppColors.onSurfaceVariant,
-              size: 26,
+              icon,
+              color: isSelected ? const Color(0xFF0052FF) : Colors.grey[400],
+              size: 24,
             ),
           ),
           const SizedBox(height: 4),
           Text(
             label,
             style: GoogleFonts.inter(
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w800 : FontWeight.w500,
-              color: isSelected ? AppColors.primary : AppColors.onSurfaceVariant,
-              letterSpacing: 0.5,
+              fontSize: 12,
+              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+              color: isSelected ? const Color(0xFF0052FF) : Colors.grey[400],
             ),
           ),
         ],
       ),
     );
   }
-
-  Widget _buildAppBarAction<T>(IconData icon, ValueListenable<List<T>> listenable, VoidCallback onTap) {
-    return ValueListenableBuilder<List<T>>(
-      valueListenable: listenable,
-      builder: (context, items, child) {
-        return Stack(
-          alignment: Alignment.center,
-          children: [
-             IconButton(
-              icon: Icon(icon, color: AppColors.onSurface, size: 24),
-              onPressed: onTap,
-            ),
-            if (items.isNotEmpty)
-              Positioned(
-                right: 8,
-                top: 8,
-                child: Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(color: AppColors.primaryContainer, shape: BoxShape.circle),
-                  constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
-                  child: Text(
-                    '${items.length}',
-                    style: const TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-          ],
-        );
-      },
-    );
-  }
 }
-
-
-
-

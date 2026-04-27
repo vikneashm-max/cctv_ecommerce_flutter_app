@@ -28,10 +28,27 @@ class CartService {
     cartItems.value = updatedList;
   }
 
+  void updateQuantity(CartItem item, int delta) {
+    final List<CartItem> currentItems = List.from(cartItems.value);
+    final int index = currentItems.indexWhere((i) => i.product.name == item.product.name);
+
+    if (index >= 0) {
+      final int newQuantity = currentItems[index].quantity + delta;
+      if (newQuantity > 0) {
+        currentItems[index] = CartItem(product: item.product, quantity: newQuantity);
+      } else {
+        currentItems.removeAt(index);
+      }
+      cartItems.value = currentItems;
+    }
+  }
+
   void toggleFavorite(Product product) {
     final List<Product> currentFavs = List.from(favoriteItems.value);
-    if (currentFavs.any((p) => p.name == product.name)) {
-      currentFavs.removeWhere((p) => p.name == product.name);
+    final int index = currentFavs.indexWhere((p) => p.name == product.name);
+    
+    if (index >= 0) {
+      currentFavs.removeAt(index);
     } else {
       currentFavs.add(product);
     }
@@ -46,7 +63,7 @@ class CartService {
     cartItems.value = [];
   }
 
-  double getTotalPrice() {
+  double getSubtotal() {
     return cartItems.value.fold(0, (sum, item) => sum + (item.product.price * item.quantity));
   }
 }

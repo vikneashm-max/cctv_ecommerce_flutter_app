@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import '../services/theme_service.dart';
 
 class AppColors {
-  static bool get _isDark => ThemeService().isDarkMode;
-
-  // Foundation & Surfaces
-  static Color get foundation => _isDark ? const Color(0xFF121315) : const Color(0xFFF8F9FE);
-  static Color get surfaceLevel1 => _isDark ? const Color(0xFF1B1C1E) : const Color(0xFFFFFFFF);
-  static Color get surfaceLevel2 => _isDark ? const Color(0xFF1F2022) : const Color(0xFFF1F4F9);
-  static Color get surfaceLevel3 => _isDark ? const Color(0xFF292A2C) : const Color(0xFFE8EEF6);
+  // Foundation (Light)
+  static const Color foundation = Color(0xFFF9F9FC); 
   
   // Brand Colors
-  static Color get primary => _isDark ? const Color(0xFFADC7FF) : const Color(0xFF1A73E8);
-  static Color get primaryContainer => _isDark ? const Color(0xFF1A73E8) : const Color(0xFFD3E3FD);
-  static Color get tertiary => _isDark ? const Color(0xFFFFB691) : const Color(0xFFE96E22);
+  static const Color primary = Color(0xFF0052FF); 
+  static const Color primaryContainer = Color(0xFF0052FF);
+  static const Color onPrimary = Colors.white;
+  static const Color secondary = Color(0xFFF0F4FF);
+  static const Color tertiary = Color(0xFFBF3003); // Added back for product details
+  
+  // Surface Levels
+  static const Color surface = Colors.white;
+  static const Color surfaceLevel1 = Colors.white; // Alias for backward compatibility
+  static const Color surfaceLevel2 = Color(0xFFF3F3F6); // Alias for backward compatibility
+  static const Color surfaceVariant = Color(0xFFF3F3F6); 
+  static const Color productCardBackground = Colors.white; 
   
   // Text Colors
-  static Color get onSurface => _isDark ? const Color(0xFFE3E2E5) : const Color(0xFF1A1C1E);
-  static Color get onSurfaceVariant => _isDark ? const Color(0xFF94A3B8) : const Color(0xFF44474E);
+  static const Color onSurface = Color(0xFF1A1C1E); 
+  static const Color onSurfaceLight = Color(0xFF1A1C1E); // Alias for backward compatibility
+  static const Color onSurfaceVariant = Color(0xFF6B6E7B); 
   
-  // Status Colors
-  static Color get error => _isDark ? const Color(0xFFFFB4AB) : const Color(0xFFBA1A1A);
-  static Color get success => const Color(0xFF10B981);
-  
-  // Glassmorphism
-  static Color glassBackground(double opacity) => surfaceLevel2.withOpacity(opacity);
+  // Others
+  static const Color outline = Color(0xFFE2E2E5);
+  static const Color error = Color(0xFFBA1A1A);
+  static const Color success = Color(0xFF00C853);
 }
-
